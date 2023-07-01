@@ -32,7 +32,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '8000-pajohack-bookingsystemp-mfnpaufhzch.ws-eu101.gitpod.io', 
     'booking-system-pp4.herokuapp.com',
-    'localhost'
+    'localhost',
+    'booking-system-pp4-45edec966ba7.herokuapp.com',
 ]
 
 
