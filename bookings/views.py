@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import BookingForm
+from .models import Booking
 
 # Create your views here.
 def index(request):
@@ -47,20 +48,31 @@ def register(request):
 
 @login_required
 def profile(request):
-    bookings = request.user.bookings.all()
+    # get bookings for the current user
+    bookings = Booking.objects.filter(user=request.user)
     return render(request, 'bookings/profile.html', {'bookings': bookings})
 
 
+@login_required
 def booking_view(request):
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
-            # process the form data
-            booking = form.save(commit=False)
+            # Manually save the form data
+            booking = Booking()
+            booking.date = form.cleaned_data['date']
+            booking.time = form.cleaned_data['time']
+            booking.guests = form.cleaned_data['guests']
+            booking.table = form.cleaned_data['table']
+            booking.name_on_booking = form.cleaned_data['name_on_booking']
+            booking.phone_number = form.cleaned_data['phone_number']
+            booking.email = form.cleaned_data['email']
             booking.user = request.user
             booking.save()
-            form.save_m2m()  # save many-to-many data
-            return redirect('profile')  # redirect to profile after successful booking
+
+            # Redirect to the user's profile page
+            return redirect('profile')
     else:
         form = BookingForm()
+
     return render(request, 'bookings/booking.html', {'form': form})

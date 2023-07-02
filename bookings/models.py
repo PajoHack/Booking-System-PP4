@@ -9,6 +9,9 @@ from cloudinary.models import CloudinaryField
 class Table(models.Model):
     table_number = models.IntegerField()
     seats = models.IntegerField()
+    
+    def __str__(self):
+        return f"Table Number {self.table_number}, Seats: {self.seats}"
 
 
 class Booking(models.Model):

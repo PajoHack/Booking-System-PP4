@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
-
+{% block title %}
+Profile
+{% endblock title %}
 {% block content %}
     <h2>Your Profile</h2>
     <p>Welcome, {{ request.user.username }}!</p>
@@ -10,10 +12,10 @@
             <li>
                 Date: {{ booking.date }} <br/>
                 Time: {{ booking.time }} <br/>
-                Guests: {{ booking.guest }} <br/>
+                Guests: {{ booking.guests }} <br/>
                 Tables: 
                 {% for table in booking.tables.all %}
-                    {{ table.number }} 
+                    {{ table.table_number }} 
                 {% endfor %}
             </li>
         {% endfor %}
@@ -22,4 +24,5 @@
         <p>You have no bookings yet.</p>
     {% endif %}
 {% endblock %}
+
 
