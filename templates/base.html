@@ -23,14 +23,18 @@
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Menu</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Gallery</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'booking' %}">Reservations</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
-        </nav>
-        
+        </nav>              
 
-        <main>
+        <main class="content">
 
             {% block content %}
 
@@ -39,8 +43,8 @@
 
         </main>
 
- <!-- Footer-->
- <footer class="py-5 bg-dark">
+<!-- Footer-->
+<footer class="py-5 bg-dark">
     <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
 </footer>
 <!-- Bootstrap core JS-->

@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .forms import BookingForm
 
 # Create your views here.
 def index(request):
@@ -24,7 +25,13 @@ def login_view(request):
     else:
         return render(request, 'bookings/login.html')
     
-    
+
+def logout_view(request):
+    logout(request)
+    # Redirect to a success page (for example, the login page).
+    return redirect('login')
+
+ 
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -40,4 +47,20 @@ def register(request):
 
 @login_required
 def profile(request):
-    return render(request, 'bookings/profile.html')
+    bookings = request.user.bookings.all()
+    return render(request, 'bookings/profile.html', {'bookings': bookings})
+
+
+def booking_view(request):
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            # process the form data
+            booking = form.save(commit=False)
+            booking.user = request.user
+            booking.save()
+            form.save_m2m()  # save many-to-many data
+            return redirect('profile')  # redirect to profile after successful booking
+    else:
+        form = BookingForm()
+    return render(request, 'bookings/booking.html', {'form': form})

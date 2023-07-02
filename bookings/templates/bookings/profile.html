@@ -3,4 +3,23 @@
 {% block content %}
     <h2>Your Profile</h2>
     <p>Welcome, {{ request.user.username }}!</p>
+    <h3>Your Bookings:</h3>
+    {% if bookings %}
+        <ul>
+        {% for booking in bookings %}
+            <li>
+                Date: {{ booking.date }} <br/>
+                Time: {{ booking.time }} <br/>
+                Guests: {{ booking.guest }} <br/>
+                Tables: 
+                {% for table in booking.tables.all %}
+                    {{ table.number }} 
+                {% endfor %}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have no bookings yet.</p>
+    {% endif %}
 {% endblock %}
+
