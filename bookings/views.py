@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import BookingForm
-from .models import Booking, create_booking
+from .models import Booking, create_booking, MenuItem
 
 # Create your views here.
 def index(request):
@@ -75,3 +75,16 @@ def booking_view(request):
 
     return render(request, 'bookings/booking.html', {'form': form})
 
+
+def menu_view(request):
+    starters = MenuItem.objects.filter(category='ST')
+    pizzas = MenuItem.objects.filter(category='PI')
+    pastas = MenuItem.objects.filter(category='PA')
+
+    context = {
+        'starters': starters,
+        'pizzas': pizzas,
+        'pastas': pastas,
+    }
+
+    return render(request, 'bookings/menu.html', context)

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block extra_title %} Menu {% endblock %}
+{% block content %}
+<div class="container">
+    <h2 class="text-center mt-5">Menu</h2>
+
+    <h2 class="mt-4">Starters</h2>
+    <div class="row">
+        {% for item in starters %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <p class="card-text">{{ item.description }}</p>
+                        <p class="card-text"><strong>Price:</strong> {{ item.price }}</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="col-12">No starters available.</p>
+        {% endfor %}
+    </div>
+
+    <h2 class="mt-4">Pizzas</h2>
+    <div class="row">
+        {% for item in pizzas %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <p class="card-text">{{ item.description }}</p>
+                        <p class="card-text"><strong>Price:</strong> {{ item.price }}</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="col-12">No pizzas available.</p>
+        {% endfor %}
+    </div>
+
+    <h2 class="mt-4">Pastas</h2>
+    <div class="row">
+        {% for item in pastas %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <p class="card-text">{{ item.description }}</p>
+                        <p class="card-text"><strong>Price:</strong> {{ item.price }}</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="col-12">No pastas available.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

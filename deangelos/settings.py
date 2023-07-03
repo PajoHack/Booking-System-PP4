@@ -16,6 +16,14 @@ import dj_database_url
 if os.path.isfile('env.py'):
     import env
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'), 
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'), 
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET')
+}
+
+print(os.getenv('CLOUDINARY_CLOUD_NAME'))
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
