@@ -1,5 +1,7 @@
 from django import forms
 from .models import Table, Booking
+from django.core.exceptions import ValidationError
+from datetime import datetime, time
 
 
 class BookingForm(forms.Form):
@@ -14,4 +16,19 @@ class BookingForm(forms.Form):
     class Meta:
         model = Booking
         fields = ['date', 'time', 'guests', 'table', 'name_on_booking', 'phone_number', 'email']
+        
+    def clean_time(self):
+        booking_time = self.cleaned_data.get('time')
+        if booking_time:
+            if booking_time < time(12, 0) or booking_time > time(21, 0):
+                raise ValidationError('Booking time must be between 12 midday and 9pm.')
+        return booking_time
+    
+    def clean_date(self):
+        booking_date = self.cleaned_data.get('date')
+        if booking_date:
+            if booking_date < datetime.date(datetime.now()):
+                raise ValidationError('Booking date cannot be in the past.')
+        return booking_date
+
 

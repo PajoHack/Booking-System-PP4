@@ -11,7 +11,7 @@ class Table(models.Model):
     seats = models.IntegerField()
     
     def __str__(self):
-        return f"Table Number {self.table_number}, Seats: {self.seats}"
+        return f"Table {self.table_number} has {self.seats} seats"
 
 
 class Booking(models.Model):

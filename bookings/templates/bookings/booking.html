@@ -1,12 +1,29 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 {% block title %}
 Reservation
 {% endblock title %}
 {% block content %}
+<div class="center-div">
     <h2>Make a Reservation</h2>
-    <form method="post">
+    <form method="post" class="form">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit">
+        {% for field in form %}
+        <div class="form-group">
+            {% if field.name != "table" %}
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field|add_class:"form-control" }}
+                {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+            {% else %}
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+            {% endif %}
+        </div>
+        {% endfor %}
+        <input type="submit" value="Submit" class="btn btn-primary">
     </form>
+</div>
 {% endblock %}
+
