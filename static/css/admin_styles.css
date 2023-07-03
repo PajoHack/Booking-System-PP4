@@ -1,0 +1,15 @@
+.navbar {
+    position: relative;
+    z-index: 2;
+}
+
+#sidebarMenu {
+    position: relative;
+    top: 0;
+    bottom: 0;
+    width: 200px;
+    overflow: auto;
+    height: 100vh;
+    z-index: 1;
+}
+
