@@ -10831,34 +10831,4 @@ textarea.form-control-lg {
   background-size: cover;
 }
 
-/* my own rules have been added below */
 
-/* make the footer stick to the bottom of the viewport */
-
-body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-.content {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  padding-bottom: 2rem;
-}
-
-footer {
-  height: 3rem;
-}
-
-/* reservation form rules */
-
-.center-div {
-  margin-top: 2rem;
-  width: 50%;
-  padding: 20px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-}
-
-/*  */

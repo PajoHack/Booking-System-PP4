@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import BookingForm
-from .models import Booking
+from .models import Booking, create_booking
 
 # Create your views here.
 def index(request):
@@ -58,17 +58,15 @@ def booking_view(request):
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
-            # Manually save the form data
-            booking = Booking()
-            booking.date = form.cleaned_data['date']
-            booking.time = form.cleaned_data['time']
-            booking.guests = form.cleaned_data['guests']
-            booking.table = form.cleaned_data['table']
-            booking.name_on_booking = form.cleaned_data['name_on_booking']
-            booking.phone_number = form.cleaned_data['phone_number']
-            booking.email = form.cleaned_data['email']
-            booking.user = request.user
-            booking.save()
+            create_booking(
+                user=request.user,
+                date=form.cleaned_data['date'],
+                time=form.cleaned_data['time'],
+                guests=form.cleaned_data['guests'],
+                your_name=form.cleaned_data['your_name'],
+                email=form.cleaned_data['email'],
+                tables=form.cleaned_data['table'],  # this is the list of selected tables
+            )
 
             # Redirect to the user's profile page
             return redirect('profile')
@@ -76,3 +74,4 @@ def booking_view(request):
         form = BookingForm()
 
     return render(request, 'bookings/booking.html', {'form': form})
+
