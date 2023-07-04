@@ -15,4 +15,10 @@ urlpatterns = [
     path('tables/new/', views.table_new, name='table_new'),
     path('tables/<int:pk>/delete/', views.table_delete, name='table_delete'),
     path('table/<int:pk>/edit/', views.table_edit, name='table_edit'),
+    # bookings urls
+    path('bookings/', views.booking_list, name='booking_list'),
+    path('bookings/new/', views.booking_new, name='booking_new'),
+    path('bookings/<int:pk>/edit/', views.booking_edit, name='booking_edit'),
+    path('bookings/<int:pk>/delete/', views.booking_delete, name='booking_delete'),
 ]
+

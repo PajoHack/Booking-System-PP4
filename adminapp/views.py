@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from bookings.models import MenuItem, Table
-from .forms import MenuItemForm, TableForm
+from bookings.models import MenuItem, Table, Booking
+from .forms import MenuItemForm, TableForm, BookingForm
 
 
 
@@ -52,6 +52,7 @@ def menu_delete(request, pk):
 
 # table views
 
+# list of tables
 def table_list(request):
     tables = Table.objects.all()
     return render(request, 'adminapp/table_list.html', {'tables': tables})
@@ -90,3 +91,44 @@ def table_edit(request, pk):
         form = TableForm(instance=table)
 
     return render(request, 'adminapp/table_edit.html', {'form': form})
+
+
+# booking views
+
+# list of bookings
+def booking_list(request):
+    bookings = Booking.objects.all()
+    return render(request, 'adminapp/booking_list.html', {'bookings': bookings})
+
+# new booking
+def booking_new(request):
+    if request.method == "POST":
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            booking = form.save(commit=False)
+            booking.user_id = form.cleaned_data['user'].id
+            booking.save()
+            return redirect('adminapp:booking_list')
+    else:
+        form = BookingForm()
+    return render(request, 'adminapp/booking_form.html', {'form': form, 'form_type': 'New'})
+
+# edit booking
+def booking_edit(request, pk):
+    booking = get_object_or_404(Booking, pk=pk)
+    if request.method == "POST":
+        form = BookingForm(request.POST, instance=booking)
+        if form.is_valid():
+            booking = form.save()
+            return redirect('adminapp:booking_list')
+    else:
+        form = BookingForm(instance=booking)
+    return render(request, 'adminapp/booking_form.html', {'form': form, 'form_type': 'Edit'})
+
+# delete booking
+def booking_delete(request, pk):
+    booking = get_object_or_404(Booking, pk=pk)
+    if request.method == 'POST':
+        booking.delete()
+        return redirect('adminapp:booking_list')
+    return render(request, 'adminapp/booking_confirm_delete.html', {'object': booking})
