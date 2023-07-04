@@ -16,18 +16,17 @@ def menu_list(request):
     menu_items = MenuItem.objects.all()
     return render(request, 'adminapp/menu_list.html', {'menu_items': menu_items})
 
+
 def menu_new(request):
     if request.method == "POST":
-        menu_item = MenuItem(
-            name = request.POST.get('name'),
-            description = request.POST.get('description'),
-            price = request.POST.get('price'),
-            category = request.POST.get('category'),
-            image = request.POST.get('image'),
-        )
-        menu_item.save()
-        return redirect('adminapp:menu_edit', pk=menu_item.pk)
-    return render(request, 'adminapp/menu_form.html')
+        form = MenuItemForm(request.POST, request.FILES)
+        if form.is_valid():
+            menu_item = form.save()
+            return redirect('adminapp:menu_list')
+    else:
+        form = MenuItemForm()
+    return render(request, 'adminapp/menu_form.html', {'form': form})
+
 
 def menu_edit(request, pk):
     menu_item = get_object_or_404(MenuItem, pk=pk)
