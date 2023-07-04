@@ -1,0 +1,11 @@
+{% extends "adminapp/base.html" %}
+{% block extra_title %} Edit Table {% endblock %}
+{% block content %}
+  <h1>Edit Table</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a href="{% url 'adminapp:table_list' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+{% endblock %}

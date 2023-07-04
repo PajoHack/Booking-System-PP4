@@ -1,0 +1,10 @@
+{% extends "adminapp/base.html" %}
+{% block extra_title %} Add New Table {% endblock %}
+{% block content %}
+    <h1>Add New Table</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+{% endblock %}

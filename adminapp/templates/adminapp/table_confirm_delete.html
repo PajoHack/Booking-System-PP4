@@ -1,0 +1,13 @@
+{% extends "adminapp/base.html" %}
+{% block extra_title %} Delete Table {% endblock %}
+{% block content %}
+  <h1>Delete Table</h1>
+  
+  <p>Are you sure you want to delete table number "{{ table.table_number }}" with "{{ table.seats }}" seats?</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-danger" value="Confirm Delete">
+    <a href="{% url 'adminapp:table_list' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+{% endblock %}

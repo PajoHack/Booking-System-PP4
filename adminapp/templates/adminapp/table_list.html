@@ -1,0 +1,34 @@
+{% extends "adminapp/base.html" %}
+{% block extra_title %} Tables {% endblock %}
+{% block content %}
+  <h1>Tables</h1>
+  <a href="{% url 'adminapp:table_new' %}" class="btn btn-primary mb-3">Add New Table</a>
+  {% if tables %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Table Number</th>
+          <th scope="col">Seats</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for table in tables %}
+        <tr>
+          <th scope="row">{{ table.id }}</th>
+          <td>{{ table.table_number }}</td>
+          <td>{{ table.seats }}</td>
+          <td>
+            <a href="{% url 'adminapp:table_edit' table.pk %}" class="text-warning"><i class="fas fa-edit"></i></a>
+            <a href="{% url 'adminapp:table_delete' table.pk %}" class="text-danger"><i class="fas fa-trash-alt"></i></a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No tables available.</p>
+  {% endif %}
+{% endblock %}
+
