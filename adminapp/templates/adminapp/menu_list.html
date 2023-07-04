@@ -8,7 +8,7 @@
     {% for menuitem in menu_items %}
       <div class="col-md-4">
         <div class="card mb-4 h-100">
-          <img class="card-img-top menu-item-image" src="{{ menuitem.image.url }}" alt="{{ menuitem.name }}">
+          <img class="card-img-top menu-item-image fixed-height" src="{{ menuitem.image.url }}" alt="{{ menuitem.name }}">
           <div class="card-body">
             <h5 class="card-title">{{ menuitem.name }}</h5>
             <p class="card-text">{{ menuitem.description }}</p>

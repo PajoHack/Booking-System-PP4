@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from bookings.models import MenuItem
+from .forms import MenuItemForm
+import pdb
 
 
 def index(request):
@@ -30,14 +32,13 @@ def menu_new(request):
 def menu_edit(request, pk):
     menu_item = get_object_or_404(MenuItem, pk=pk)
     if request.method == "POST":
-        menu_item.name = request.POST.get('name')
-        menu_item.description = request.POST.get('description')
-        menu_item.price = request.POST.get('price')
-        menu_item.category = request.POST.get('category')
-        menu_item.image = request.POST.get('image')
-        menu_item.save()
-        return redirect('adminapp:menu_edit', pk=menu_item.pk)
-    return render(request, 'adminapp/menu_edit.html', {'menu_item': menu_item})
+        form = MenuItemForm(request.POST, request.FILES, instance=menu_item)
+        if form.is_valid():
+            form.save()
+            return redirect('adminapp:menu_list')
+    else:
+        form = MenuItemForm(instance=menu_item)
+    return render(request, 'adminapp/menu_edit.html', {'form': form, 'menu_item': menu_item})
 
 
 def menu_delete(request, pk):
