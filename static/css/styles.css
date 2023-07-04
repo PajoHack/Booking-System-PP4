@@ -10832,3 +10832,16 @@ textarea.form-control-lg {
 }
 
 
+/* custom css */
+
+footer .social-media {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+footer .social-media a {
+  color: white;
+  font-size: 20px;
+}
