@@ -45,4 +45,4 @@ def menu_delete(request, pk):
     if request.method == "POST":
         menu_item.delete()
         return redirect('adminapp:menu_list')
-    return render(request, 'adminapp/menu_delete.html', {'menu_item': menu_item})
+    return render(request, 'adminapp/menu_item_delete.html', {'menu_item': menu_item})
