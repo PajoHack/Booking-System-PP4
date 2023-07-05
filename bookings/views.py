@@ -18,11 +18,12 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            # Redirect to a success page.
-            return redirect('profile')
+            if user.is_superuser:
+                return redirect('adminapp:admin_home')
+            else:
+                return redirect('profile')
         else:
-            # Return an 'invalid login' error message.
-            return render(request, 'login.html', {'error': 'Invalid username or password'})
+            return render(request, 'bookings/login.html', {'error': 'Invalid username or password'})
     else:
         return render(request, 'bookings/login.html')
     

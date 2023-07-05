@@ -4,29 +4,24 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-  }
+}
   
-  .content {
+.content {
     flex: 1;
     display: flex;
     justify-content: center;
     padding-bottom: 2rem;
-  }
+}
   
-  footer {
-    height: 3rem;
-  }
+.footer {
+    /* height: 3rem; */
+    margin-top: auto;
+}
   
   /* reservation form rules */
   
-  /* .center-div {
-    margin-top: 2rem;
-    width: 50%;
-    padding: 20px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  } */
   
-  .center-div {
+.center-div {
     margin-top: 2rem;
     padding: 20px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);

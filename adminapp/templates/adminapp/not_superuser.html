@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <h2>You must be a superuser to access this page</h2>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/new_styles.css' %}">
+{% endblock %}

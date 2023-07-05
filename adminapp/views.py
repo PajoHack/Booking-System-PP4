@@ -2,23 +2,38 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from bookings.models import MenuItem, Table, Booking
 from .forms import MenuItemForm, TableForm, BookingForm
-
+from django.contrib.auth.decorators import user_passes_test, login_required
 
 
 def index(request):
     return HttpResponse("Hello, world. You're at the adminapp index.")
 
 
+def superuser_check(user):
+    return user.is_superuser
+
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def admin_home(request):
     return render(request, 'adminapp/admin_home.html')
 
+
+def not_superuser(request):
+    return render(request, 'adminapp/not_superuser.html')
+
+
 # menu views
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def menu_list(request):
     menu_items = MenuItem.objects.all()
     return render(request, 'adminapp/menu_list.html', {'menu_items': menu_items})
 
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def menu_new(request):
     if request.method == "POST":
         form = MenuItemForm(request.POST, request.FILES)
@@ -30,6 +45,8 @@ def menu_new(request):
     return render(request, 'adminapp/menu_form.html', {'form': form})
 
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def menu_edit(request, pk):
     menu_item = get_object_or_404(MenuItem, pk=pk)
     if request.method == "POST":
@@ -42,6 +59,8 @@ def menu_edit(request, pk):
     return render(request, 'adminapp/menu_edit.html', {'form': form, 'menu_item': menu_item})
 
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def menu_delete(request, pk):
     menu_item = get_object_or_404(MenuItem, pk=pk)
     if request.method == "POST":
@@ -53,11 +72,15 @@ def menu_delete(request, pk):
 # table views
 
 # list of tables
+@login_required
+@user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def table_list(request):
     tables = Table.objects.all()
     return render(request, 'adminapp/table_list.html', {'tables': tables})
 
 # new table
+@login_required
+@user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def table_new(request):
     if request.method == "POST":
         form = TableForm(request.POST)
@@ -70,6 +93,8 @@ def table_new(request):
 
 
 # delete table
+@login_required
+@user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def table_delete(request, pk):
     table = get_object_or_404(Table, pk=pk)
     if request.method == "POST":
@@ -79,6 +104,8 @@ def table_delete(request, pk):
 
 
 # edit table
+@login_required
+@user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def table_edit(request, pk):
     table = get_object_or_404(Table, pk=pk)
 
@@ -96,11 +123,15 @@ def table_edit(request, pk):
 # booking views
 
 # list of bookings
+@login_required
+@user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def booking_list(request):
     bookings = Booking.objects.all()
     return render(request, 'adminapp/booking_list.html', {'bookings': bookings})
 
 # new booking
+@login_required
+@user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def booking_new(request):
     if request.method == "POST":
         form = BookingForm(request.POST)
@@ -114,6 +145,8 @@ def booking_new(request):
     return render(request, 'adminapp/booking_form.html', {'form': form, 'form_type': 'New'})
 
 # edit booking
+@login_required
+@user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def booking_edit(request, pk):
     booking = get_object_or_404(Booking, pk=pk)
     if request.method == "POST":
@@ -126,6 +159,8 @@ def booking_edit(request, pk):
     return render(request, 'adminapp/booking_form.html', {'form': form, 'form_type': 'Edit'})
 
 # delete booking
+@login_required
+@user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def booking_delete(request, pk):
     booking = get_object_or_404(Booking, pk=pk)
     if request.method == 'POST':
