@@ -5,57 +5,102 @@
     <h2 class="text-center mt-5">Menu</h2>
 
     <h2 class="mt-4">Starters</h2>
-    <div class="row">
+    <ul class="list-group">
         {% for item in starters %}
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ item.name }}</h5>
-                        <p class="card-text">{{ item.description }}</p>
-                        <p class="card-text"><strong>Price:</strong> {{ item.price }}</p>
+        {% cycle 'row1' 'row2' as rowcolors silent %}
+            <li class="list-group-item {{ rowcolors }}">
+                <div class="row">
+                    {% if rowcolors == 'row1' %}
+                    <div class="col-md-6">
+                        <img src="{{ item.image.url }}" class="menu-item-image img-fluid rounded mb-3 mb-md-0" alt="{{ item.name }}">
                     </div>
+                    <div class="col-md-6">
+                        <h3>{{ item.name }}</h3>
+                        <p>{{ item.description }}</p>
+                        <p><strong>Price:</strong> {{ item.price }}</p>
+                    </div>
+                    {% else %}
+                    <div class="col-md-6 order-md-2">
+                        <img src="{{ item.image.url }}" class="menu-item-image img-fluid rounded mb-3 mb-md-0" alt="{{ item.name }}">
+                    </div>
+                    <div class="col-md-6">
+                        <h3>{{ item.name }}</h3>
+                        <p>{{ item.description }}</p>
+                        <p><strong>Price:</strong> {{ item.price }}</p>
+                    </div>
+                    {% endif %}
                 </div>
-            </div>
+                <hr>
+            </li>
         {% empty %}
-            <p class="col-12">No starters available.</p>
+            <li class="list-group-item">No starters available.</li>
         {% endfor %}
-    </div>
+    </ul>
+
 
     <h2 class="mt-4">Pizzas</h2>
-    <div class="row">
+    <ul class="list-group">
         {% for item in pizzas %}
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ item.name }}</h5>
-                        <p class="card-text">{{ item.description }}</p>
-                        <p class="card-text"><strong>Price:</strong> {{ item.price }}</p>
+        {% cycle 'row1' 'row2' as rowcolors silent %}
+            <li class="list-group-item {{ rowcolors }}">
+                <div class="row">
+                    {% if rowcolors == 'row1' %}
+                    <div class="col-md-6">
+                        <img src="{{ item.image.url }}" class="menu-item-image img-fluid rounded mb-3 mb-md-0" alt="{{ item.name }}">
                     </div>
+                    <div class="col-md-6">
+                        <h3>{{ item.name }}</h3>
+                        <p>{{ item.description }}</p>
+                        <p><strong>Price:</strong> {{ item.price }}</p>
+                    </div>
+                    {% else %}
+                    <div class="col-md-6 order-md-2">
+                        <img src="{{ item.image.url }}" class="menu-item-image img-fluid rounded mb-3 mb-md-0" alt="{{ item.name }}">
+                    </div>
+                    <div class="col-md-6">
+                        <h3>{{ item.name }}</h3>
+                        <p>{{ item.description }}</p>
+                        <p><strong>Price:</strong> {{ item.price }}</p>
+                    </div>
+                    {% endif %}
                 </div>
-            </div>
+                <hr>
+            </li>
         {% empty %}
-            <p class="col-12">No pizzas available.</p>
+            <li class="list-group-item">No starters available.</li>
         {% endfor %}
-    </div>
-
+    </ul>
     <h2 class="mt-4">Pastas</h2>
-    <div class="row">
+    <ul class="list-group">
         {% for item in pastas %}
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ item.name }}</h5>
-                        <p class="card-text">{{ item.description }}</p>
-                        <p class="card-text"><strong>Price:</strong> {{ item.price }}</p>
+        {% cycle 'row1' 'row2' as rowcolors silent %}
+            <li class="list-group-item {{ rowcolors }}">
+                <div class="row">
+                    {% if rowcolors == 'row1' %}
+                    <div class="col-md-6">
+                        <img src="{{ item.image.url }}" class="menu-item-image img-fluid rounded mb-3 mb-md-0" alt="{{ item.name }}">
                     </div>
+                    <div class="col-md-6">
+                        <h3>{{ item.name }}</h3>
+                        <p>{{ item.description }}</p>
+                        <p><strong>Price:</strong> {{ item.price }}</p>
+                    </div>
+                    {% else %}
+                    <div class="col-md-6 order-md-2">
+                        <img src="{{ item.image.url }}" class="menu-item-image img-fluid rounded mb-3 mb-md-0" alt="{{ item.name }}">
+                    </div>
+                    <div class="col-md-6">
+                        <h3>{{ item.name }}</h3>
+                        <p>{{ item.description }}</p>
+                        <p><strong>Price:</strong> {{ item.price }}</p>
+                    </div>
+                    {% endif %}
                 </div>
-            </div>
+                <hr>
+            </li>
         {% empty %}
-            <p class="col-12">No pastas available.</p>
+            <li class="list-group-item">No starters available.</li>
         {% endfor %}
-    </div>
+    </ul>
 </div>
 {% endblock %}

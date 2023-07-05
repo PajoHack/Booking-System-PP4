@@ -10845,3 +10845,9 @@ footer .social-media a {
   color: white;
   font-size: 20px;
 }
+
+.menu-item-image {
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+}
