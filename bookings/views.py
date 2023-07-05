@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
@@ -59,22 +59,54 @@ def booking_view(request):
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
-            create_booking(
-                user=request.user,
-                date=form.cleaned_data['date'],
-                time=form.cleaned_data['time'],
-                guests=form.cleaned_data['guests'],
-                your_name=form.cleaned_data['your_name'],
-                email=form.cleaned_data['email'],
-                tables=form.cleaned_data['table'],  # this is the list of selected tables
-            )
-
+            booking = form.save(commit=False)
+            booking.user = request.user
+            booking.save()
+            form.save_m2m() # to save many-to-many data
             # Redirect to the user's profile page
             return redirect('profile')
     else:
         form = BookingForm()
 
     return render(request, 'bookings/booking.html', {'form': form})
+
+
+@login_required
+def edit_booking_view(request, pk):
+    # Get the booking to update
+    booking = get_object_or_404(Booking, id=pk, user=request.user)
+
+    if request.method == 'POST':
+        form = BookingForm(request.POST, instance=booking)
+        if form.is_valid():
+            form.save()
+            # Redirect to the user's profile page
+            return redirect('profile')
+    else:
+        form = BookingForm(instance=booking)
+
+    return render(request, 'bookings/booking.html', {'form': form})
+
+
+@login_required
+def delete_booking_view(request, pk):
+    booking = get_object_or_404(Booking, id=pk, user=request.user)
+    
+    if request.method == 'POST':
+        booking.delete()
+        return redirect('profile')
+    
+    return render(request, 'bookings/delete_booking.html', {'booking': booking})
+
+
+# @login_required
+# def delete_booking_view(request, pk):
+#     booking = Booking.objects.get(pk=pk)
+#     if request.user != booking.user:
+#         return redirect('profile')
+    
+#     booking.delete()
+#     return redirect('profile')
 
 
 def menu_view(request):

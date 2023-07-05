@@ -26,6 +26,8 @@ Profile
                             </p>
                         </div>
                     </div>
+                    <a href="{% url 'edit_booking' booking.id %}">Edit</a>
+                    <a href="{% url 'delete_booking' booking.id %}">Delete</a>
                 </div>
             {% endfor %}
             </div>

@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from datetime import datetime, time
 
 
-class BookingForm(forms.Form):
+class BookingForm(forms.ModelForm):
     date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date', 'id': 'date'}))
     time = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'text', 'id': 'datetimepicker'}))
     guests = forms.IntegerField()

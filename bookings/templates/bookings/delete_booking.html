@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Delete Booking
+{% endblock title %}
+{% block content %}
+    <div class="center-div">
+        <h2>Delete Booking</h2>
+        <p>Are you sure you want to delete the following booking?</p>
+        <p>
+            Date: {{ booking.date }} <br/>
+            Time: {{ booking.time }} <br/>
+            Guests: {{ booking.guests }} <br/>
+            Tables: 
+            {% for table in booking.tables.all %}
+                {{ table.table_number }} 
+            {% endfor %}
+        </p>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Yes, delete it.">
+        </form>
+        <a href="{% url 'profile' %}">No, take me back.</a>
+    </div>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/new_styles.css' %}">
+{% endblock %}
