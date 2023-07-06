@@ -24,6 +24,15 @@ CLOUDINARY_STORAGE = {
 
 LOGIN_URL = 'login'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'in-v3.mailjet.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('MAILJET_API_KEY')
+EMAIL_HOST_PASSWORD = os.environ.get('MAILJET_SECRET_KEY')
+DEFAULT_FROM_EMAIL = 'patrick.hackman@mail.com'
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')

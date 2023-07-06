@@ -5,8 +5,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import BookingForm
 from .models import Booking, create_booking, MenuItem
+from mailjet_rest import Client
+import os
 
-# Create your views here.
+
 def index(request):
     return render(request, 'index.html')
 
@@ -30,7 +32,6 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    # Redirect to a success page (for example, the login page).
     return redirect('login')
 
  
@@ -41,7 +42,7 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
-            return redirect('login') # replace 'login' with the name of your login url
+            return redirect('login')
     else:
         form = UserCreationForm()
     return render(request, 'bookings/register.html', {'form': form})
@@ -49,7 +50,6 @@ def register(request):
 
 @login_required
 def profile(request):
-    # get bookings for the current user
     bookings = Booking.objects.filter(user=request.user)
     return render(request, 'bookings/profile.html', {'bookings': bookings})
 
@@ -58,12 +58,50 @@ def profile(request):
 def booking_view(request):
     if request.method == 'POST':
         form = BookingForm(request.POST)
+        print(f"Form is valid: {form.is_valid()}")
+        print(f"Form errors: {form.errors}")
         if form.is_valid():
             booking = form.save(commit=False)
             booking.user = request.user
             booking.save()
-            form.save_m2m() # to save many-to-many data
-            # Redirect to the user's profile page
+            form.save_m2m()
+
+            # Send email confirmation
+            api_key = os.getenv('MAILJET_API_KEY')
+            api_secret = os.getenv('MAILJET_SECRET_KEY')
+            mailjet = Client(auth=(api_key, api_secret), version='v3.1')
+
+            data = {
+                'Messages': [
+                    {
+                        'From': {
+                            'Email': 'patrick.hackman@mail.com',
+                            'Name': 'DeAngelo\'s',
+                        },
+                        'To': [
+                            {
+                            'Email': form.cleaned_data['email'],
+                            'Name': form.cleaned_data['your_name'],
+                            }
+                        ],
+                        'TemplateID': 4936543,
+                        'TemplateLanguage': True,
+                        'Subject': 'Your booking confirmation',
+                        'Variables': {
+                            'name': form.cleaned_data['your_name'],
+                            'date': str(form.cleaned_data['date']),
+                            'time': str(form.cleaned_data['time']),
+                            'guests': str(form.cleaned_data['guests']),
+                            'phone_number': form.cleaned_data['phone_number'],
+                        },
+                    }
+                ]
+            }
+
+            result = mailjet.send.create(data=data)
+            print(result.status_code)
+            print(result.json())
+
             return redirect('profile')
     else:
         form = BookingForm()
@@ -73,14 +111,13 @@ def booking_view(request):
 
 @login_required
 def edit_booking_view(request, pk):
-    # Get the booking to update
+
     booking = get_object_or_404(Booking, id=pk, user=request.user)
 
     if request.method == 'POST':
         form = BookingForm(request.POST, instance=booking)
         if form.is_valid():
             form.save()
-            # Redirect to the user's profile page
             return redirect('profile')
     else:
         form = BookingForm(instance=booking)
@@ -97,16 +134,6 @@ def delete_booking_view(request, pk):
         return redirect('profile')
     
     return render(request, 'bookings/delete_booking.html', {'booking': booking})
-
-
-# @login_required
-# def delete_booking_view(request, pk):
-#     booking = Booking.objects.get(pk=pk)
-#     if request.user != booking.user:
-#         return redirect('profile')
-    
-#     booking.delete()
-#     return redirect('profile')
 
 
 def menu_view(request):
