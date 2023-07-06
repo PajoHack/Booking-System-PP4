@@ -4,37 +4,37 @@
 Profile
 {% endblock title %}
 {% block content %}
-    <div class="center-div">
-        <h2>Your Profile</h2>
-        <p>Welcome, {{ request.user.username }}!</p>
-        <h3>Your Bookings:</h3>
-        {% if bookings %}
-            <div class="row">
-            {% for booking in bookings %}
-                <div class="col-sm-4">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Booking Details</h5>
-                            <p class="card-text">
-                                Date: {{ booking.date }} <br/>
-                                Time: {{ booking.time }} <br/>
-                                Guests: {{ booking.guests }} <br/>
-                                Tables: 
-                                {% for table in booking.tables.all %}
-                                    {{ table.table_number }} 
-                                {% endfor %}
-                            </p>
-                        </div>
+<div class="center-div">
+    <h2>Your Profile</h2>
+    <p>Welcome, {{ request.user.username }}!</p>
+    <h3>Your Bookings:</h3>
+    {% if bookings %}
+        <div class="row">
+        {% for booking in bookings %}
+            <div class="col-sm-4">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Booking Details</h5>
+                        <p class="card-text">
+                            Date: {{ booking.date }} <br/>
+                            Time: {{ booking.time }} <br/>
+                            Guests: {{ booking.guests }} <br/>
+                            Tables: 
+                            {% for table in booking.tables.all %}
+                                {{ table.table_number }} 
+                            {% endfor %}
+                        </p>
+                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'delete_booking' booking.id %}" class="btn btn-danger">Delete</a>
                     </div>
-                    <a href="{% url 'edit_booking' booking.id %}">Edit</a>
-                    <a href="{% url 'delete_booking' booking.id %}">Delete</a>
                 </div>
-            {% endfor %}
             </div>
-        {% else %}
-            <p>You have no bookings yet.</p>
-        {% endif %}
-    </div>
+        {% endfor %}
+        </div>
+    {% else %}
+        <p>You have no bookings yet.</p>
+    {% endif %}
+</div>
 {% endblock %}
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/new_styles.css' %}">
