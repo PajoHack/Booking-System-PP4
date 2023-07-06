@@ -10852,3 +10852,12 @@ footer .social-media a {
   object-fit: cover;
 }
 
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler:focus {
+  outline: none;
+  box-shadow: none;
+}
+
