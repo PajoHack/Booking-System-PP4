@@ -21,6 +21,7 @@ class Booking(models.Model):
     guests = models.IntegerField()
     your_name = models.CharField(max_length=255)
     email = models.EmailField()
+    phone_number = models.CharField(max_length=15, default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     tables = models.ManyToManyField(Table, through='TableBooking')
 
