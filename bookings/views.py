@@ -85,7 +85,7 @@ def edit_booking_view(request, pk):
     else:
         form = BookingForm(instance=booking)
 
-    return render(request, 'bookings/booking.html', {'form': form})
+    return render(request, 'bookings/booking.html', {'form': form, 'edit_mode': True})
 
 
 @login_required

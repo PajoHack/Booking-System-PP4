@@ -6,7 +6,8 @@ Reservation
 {% endblock title %}
 {% block content %}
 <div class="center-div">
-    <h2>Make a Reservation</h2>
+    <!-- <h2>Make a Reservation</h2> -->
+    <h2>{% if edit_mode %}Edit Your Booking{% else %}Make a Reservation{% endif %}</h2>
     <form method="post" class="form">
         {% csrf_token %}
         {% for field in form %}
