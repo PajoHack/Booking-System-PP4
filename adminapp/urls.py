@@ -5,6 +5,7 @@ app_name = 'adminapp'
 
 urlpatterns = [
     path('', views.admin_home, name='admin_home'),
+    path('adminapps2/', views.admin_home2, name='admin_home2'),
     # menu urls
     path('menu/', views.menu_list, name='menu_list'),
     path('menu/new/', views.menu_new, name='menu_new'),

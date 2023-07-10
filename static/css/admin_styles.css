@@ -1,6 +1,11 @@
-.navbar {
+.navbar.navbar-light.bg-light {
     position: relative;
     z-index: 2;
+    background-color: #000;
+}
+
+.navbar .nav-link, .navbar .navbar-brand {
+    color: #fff;
 }
 
 #sidebarMenu {
@@ -11,6 +16,11 @@
     overflow: auto;
     height: 100vh;
     z-index: 1;
+    background-color: #000;
+}
+
+#sidebarMenu .nav-link {
+    color: #fff
 }
 
 /* fixed height for images in menu list page */

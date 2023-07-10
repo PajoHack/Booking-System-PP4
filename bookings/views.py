@@ -13,6 +13,10 @@ def index(request):
     return render(request, 'index.html')
 
 
+def admin_home2(request):
+    return render(request, 'admin_home2.html')
+
+
 def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -99,8 +103,8 @@ def booking_view(request):
             }
 
             result = mailjet.send.create(data=data)
-            print(result.status_code)
-            print(result.json())
+            # print(result.status_code)
+            # print(result.json())
 
             return redirect('profile')
     else:
