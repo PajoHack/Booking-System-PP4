@@ -8,14 +8,14 @@ class BookingForm(forms.ModelForm):
     date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date', 'id': 'date'}))
     time = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'text', 'id': 'datetimepicker'}))
     guests = forms.IntegerField()
-    table = forms.ModelMultipleChoiceField(queryset=Table.objects.all(), widget=forms.CheckboxSelectMultiple)
+    tables = forms.ModelMultipleChoiceField(queryset=Table.objects.all(), widget=forms.CheckboxSelectMultiple)
     your_name = forms.CharField(label="Name on Booking", max_length=255)
     phone_number = forms.CharField(label="Phone Number", max_length=15)
     email = forms.EmailField(label="Email")
     
     class Meta:
         model = Booking
-        fields = ['date', 'time', 'guests', 'table', 'your_name', 'phone_number', 'email']
+        fields = ['date', 'time', 'guests', 'tables', 'your_name', 'phone_number', 'email']
         
     def clean_time(self):
         booking_time = self.cleaned_data.get('time')

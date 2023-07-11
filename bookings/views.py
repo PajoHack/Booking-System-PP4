@@ -123,7 +123,15 @@ def edit_booking_view(request, pk):
     if request.method == 'POST':
         form = BookingForm(request.POST, instance=booking)
         if form.is_valid():
-            form.save()
+            booking = form.save(commit=False)  # save form, but don't commit yet
+            booking.save()  # save the booking instance
+            
+            # Clear the current tables
+            booking.tables.clear()
+            # Add the selected tables
+            for table in form.cleaned_data['tables']:
+                booking.tables.add(table)
+
             return redirect('profile')
     else:
         form = BookingForm(instance=booking)
