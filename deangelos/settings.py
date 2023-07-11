@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import logging
 import os
 import dj_database_url
 if os.path.isfile('env.py'):
@@ -44,7 +45,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '8000-pajohack-bookingsystemp-mfnpaufhzch.ws-eu101.gitpod.io', 
@@ -159,6 +160,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+logger = logging.getLogger('django')
+logger.info('STATIC_URL: ', STATIC_URL)
+logger.info('STATIC_ROOT: ', STATIC_ROOT)
+logger.info('STATICFILES_DIRS: ', STATICFILES_DIRS)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
