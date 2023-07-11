@@ -7,7 +7,7 @@ from cloudinary.models import CloudinaryField
 
 
 class Table(models.Model):
-    table_number = models.IntegerField()
+    table_number = models.IntegerField(unique=True)
     seats = models.IntegerField()
     
     def __str__(self):
