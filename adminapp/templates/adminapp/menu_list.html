@@ -1,5 +1,11 @@
 {% extends "adminapp/base.html" %}
+{% load static %}
 {% block extra_title %} Menu Items {% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/admin_styles.css' %}">
+{% endblock %}
+
 {% block content %}
   <h1>Menu Items</h1>
   <a href="{% url 'adminapp:menu_new' %}" class="btn btn-primary mb-3">Add New Menu Item</a>

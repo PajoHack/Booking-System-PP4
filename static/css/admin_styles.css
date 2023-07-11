@@ -5,7 +5,7 @@
 }
 
 .navbar .nav-link, .navbar .navbar-brand {
-    color: #fff;
+    color: #000;
 }
 
 #sidebarMenu {
@@ -20,14 +20,15 @@
 }
 
 #sidebarMenu .nav-link {
-    color: #fff
+    color: #000;
 }
 
 /* fixed height for images in menu list page */
 
 .fixed-height {
-    height: 200px;  /* Adjust as needed */
-    width: 100%;  /* Adjust as needed */
-    object-fit: cover; /* Ensures that aspect ratio is maintained */
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
 }
   
