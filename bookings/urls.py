@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import error_500_view
+from .views import error_500_view, error_403_view
 
 
 urlpatterns = [
@@ -14,5 +14,5 @@ urlpatterns = [
     path('booking/delete/<int:pk>/', views.delete_booking_view, name='delete_booking'),
     path('menu/', views.menu_view, name="menu"),
     path('500/', error_500_view, name='500_error'),
-    # path('403/', error_403_view, name='403_error'),
+    path('403/', error_403_view, name='403_error'),
 ]

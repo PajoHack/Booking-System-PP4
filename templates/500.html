@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %} 500 Error - Server Error {% endblock title %}
 
 {% block css %}
@@ -6,6 +7,14 @@
 {% endblock css %}
 
 {% block content %}
-    <h1>Error: 500</h1>
-    <p>We're sorry, but something went wrong on our end. We're working to fix it as soon as possible.</p>
+<div class="container d-flex h-100">
+    <div class="row align-items-center h-100">
+        <div class="mx-auto text-center">
+            <h1 class="display-1">500</h1>
+            <h2 class="display-4">Oops! Something is wrong.</h2>
+            <p class="lead">The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>
+            <a href="{% url 'index' %}" class="btn btn-primary">Go to Home</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

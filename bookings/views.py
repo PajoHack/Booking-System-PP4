@@ -176,5 +176,5 @@ def error_500_view(request):
     raise Exception('This is a test exception')
 
 
-# def error_403_view(request):
-#     raise PermissionDenied
+def error_403_view(request):
+    raise PermissionDenied
