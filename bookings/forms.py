@@ -7,7 +7,7 @@ from datetime import datetime, time
 class BookingForm(forms.ModelForm):
     date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date', 'id': 'date'}))
     time = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'text', 'id': 'datetimepicker'}))
-    guests = forms.IntegerField()
+    guests = forms.IntegerField(min_value=1, max_value=28, widget=forms.NumberInput(attrs={'min': '1', 'max': '28'}))
     tables = forms.ModelMultipleChoiceField(queryset=Table.objects.all(), widget=forms.CheckboxSelectMultiple)
     your_name = forms.CharField(label="Name on Booking", max_length=255)
     phone_number = forms.CharField(label="Phone Number", max_length=15)
@@ -31,5 +31,4 @@ class BookingForm(forms.ModelForm):
             if booking_date < datetime.date(datetime.now()):
                 raise ValidationError('Booking date cannot be in the past.')
         return booking_date
-
 

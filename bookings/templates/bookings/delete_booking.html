@@ -4,24 +4,38 @@
 Delete Booking
 {% endblock title %}
 {% block content %}
-    <div class="center-div">
-        <h2>Delete Booking</h2>
-        <p>Are you sure you want to delete the following booking?</p>
-        <p>
-            Date: {{ booking.date }} <br/>
-            Time: {{ booking.time }} <br/>
-            Guests: {{ booking.guests }} <br/>
-            Tables: 
-            {% for table in booking.tables.all %}
-                {{ table.table_number }} 
-            {% endfor %}
-        </p>
-        <form method="POST">
-            {% csrf_token %}
-            <input type="submit" value="Yes, delete it.">
-        </form>
-        <a href="{% url 'profile' %}">No, take me back.</a>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-danger mb-3">
+                <div class="card-header text-white bg-danger">
+                    <h3>Delete Booking</h3>
+                </div>
+                <div class="card-body">
+                    <p>Are you sure you want to delete the following booking?</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Date: {{ booking.date }}</li>
+                        <li class="list-group-item">Time: {{ booking.time }}</li>
+                        <li class="list-group-item">Guests: {{ booking.guests }}</li>
+                        <li class="list-group-item">
+                            Tables: 
+                            {% for table in booking.tables.all %}
+                                {{ table.table_number }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="Yes, delete it." class="btn btn-danger">
+                    </form>
+                    <a href="{% url 'profile' %}" class="btn btn-secondary mt-2">No, take me back.</a>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 {% endblock %}
 
 {% block css %}
