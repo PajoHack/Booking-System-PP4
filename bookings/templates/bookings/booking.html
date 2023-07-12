@@ -22,7 +22,9 @@ Reservation
             {% endif %}
         </div>
         {% endfor %}
-        <input type="submit" value="Submit" class="btn btn-primary">
+        <p id="message"></p>
+        <input type="submit" value="Submit" class="btn btn-primary" id="submitButton">
+        <div id="feedback"></div>
     </form>
 </div>
 {% endblock %}

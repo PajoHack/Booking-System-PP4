@@ -5,10 +5,15 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import BookingForm
-from .models import Booking, create_booking, MenuItem
+from .models import Booking, create_booking, MenuItem, Table, TableBooking
 from mailjet_rest import Client
 import os
 from django.core.exceptions import PermissionDenied
+from django.http import JsonResponse
+from django.views import View
+from django.utils import timezone
+from django.db.models import Q
+from datetime import timedelta, datetime
 
 
 def index(request):
@@ -163,6 +168,39 @@ def menu_view(request):
 
     return render(request, 'bookings/menu.html', context)
 
+
+class CheckAvailabilityView(View):
+    def get(self, request, *args, **kwargs):
+        table_id = request.GET.get('table_id', None)
+        date_str = request.GET.get('date', None)
+        time_str = request.GET.get('time', None)
+
+        print(f"table_id: {table_id}, date: {date_str}, time: {time_str}")
+
+        if not table_id or not date_str or not time_str:
+            return JsonResponse({'detail': 'Invalid request.'}, status=400)
+
+        date = timezone.datetime.strptime(date_str, '%Y-%m-%d').date()
+        time = timezone.datetime.strptime(time_str, '%H:%M:%S').time()
+
+        table = Table.objects.get(id=table_id)
+
+        # Compute the end time by adding 2 hours to the start time
+        end_time = (datetime.combine(date, time) + timedelta(hours=2)).time()
+
+        # Check for any bookings that overlap with the requested time slot
+        table_bookings = TableBooking.objects.filter(
+            table=table, 
+            booking__date=date
+        ).filter(
+            Q(booking__time__lte=time, booking__time__gt=end_time) | Q(booking__time__range=(time, end_time))
+        )
+
+        if table_bookings.exists():
+            return JsonResponse({'available': False})
+        else:
+            return JsonResponse({'available': True})
+        
 
 def handler500(request, *args, **argv):
     return render(request, '500.html', status=500)

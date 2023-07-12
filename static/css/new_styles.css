@@ -18,14 +18,17 @@ body {
     margin-top: auto;
 }
   
-  /* reservation form rules */
-  
+/* reservation form rules */
   
 .center-div {
     margin-top: 2rem;
     padding: 20px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     width: 100%;
+}
+
+#message {
+    min-height: 20px;
 }
 
 @media (min-width: 576px) {

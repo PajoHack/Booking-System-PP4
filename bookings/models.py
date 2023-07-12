@@ -34,6 +34,7 @@ class TableBooking(models.Model):
         unique_together = ('table', 'booking')
 
 
+
 @transaction.atomic
 def create_booking(user, date, time, guests, your_name, email, tables):
     booking = Booking.objects.create(user=user, date=date, time=time, guests=guests, your_name=your_name, email=email)
