@@ -1,106 +1,69 @@
 {% extends 'base.html' %}
-{% block extra_title %} Menu {% endblock %}
+{% block title %}
+Menu
+{% endblock title %}
 {% block content %}
 <div class="container">
-    <h2 class="text-center mt-5">Menu</h2>
+    <h2 class="menu-title text-center mt-5">Menu</h2>
 
-    <h2 class="mt-4">Starters</h2>
-    <ul class="list-group">
+    <h2 class="menu-title mt-4">Starters</h2>
+    <div class="row card-container">
         {% for item in starters %}
-        {% cycle 'row1' 'row2' as rowcolors silent %}
-            <li class="list-group-item {{ rowcolors }}">
-                <div class="row">
-                    {% if rowcolors == 'row1' %}
-                    <div class="col-md-6">
-                        <img src="{{ item.image.url }}" class="menu-item-image img-fluid rounded mb-3 mb-md-0" alt="{{ item.name }}">
-                    </div>
-                    <div class="col-md-6">
-                        <h3>{{ item.name }}</h3>
-                        <p>{{ item.description }}</p>
-                        <p><strong>Price:</strong> {{ item.price }}</p>
-                    </div>
-                    {% else %}
-                    <div class="col-md-6 order-md-2">
-                        <img src="{{ item.image.url }}" class="menu-item-image img-fluid rounded mb-3 mb-md-0" alt="{{ item.name }}">
-                    </div>
-                    <div class="col-md-6">
-                        <h3>{{ item.name }}</h3>
-                        <p>{{ item.description }}</p>
-                        <p><strong>Price:</strong> {{ item.price }}</p>
-                    </div>
-                    {% endif %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                {% if item.image.url %}
+                <img class="card-img-top img-fluid menu-item-image" src="{{ item.image.url }}" alt="{{ item.name }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.name }}</h5>
+                    <p class="card-text">{{ item.description }}</p>
+                    <h4 class="card-price">€{{ item.price }}</h4>
                 </div>
-                <hr>
-            </li>
+            </div>
+        </div>
         {% empty %}
-            <li class="list-group-item">No starters available.</li>
+        <p>No starters available.</p>
         {% endfor %}
-    </ul>
+    </div>
 
-
-    <h2 class="mt-4">Pizzas</h2>
-    <ul class="list-group">
+    <h2 class="menu-title mt-4">Pizzas</h2>
+    <div class="row card-container">
         {% for item in pizzas %}
-        {% cycle 'row1' 'row2' as rowcolors silent %}
-            <li class="list-group-item {{ rowcolors }}">
-                <div class="row">
-                    {% if rowcolors == 'row1' %}
-                    <div class="col-md-6">
-                        <img src="{{ item.image.url }}" class="menu-item-image img-fluid rounded mb-3 mb-md-0" alt="{{ item.name }}">
-                    </div>
-                    <div class="col-md-6">
-                        <h3>{{ item.name }}</h3>
-                        <p>{{ item.description }}</p>
-                        <p><strong>Price:</strong> {{ item.price }}</p>
-                    </div>
-                    {% else %}
-                    <div class="col-md-6 order-md-2">
-                        <img src="{{ item.image.url }}" class="menu-item-image img-fluid rounded mb-3 mb-md-0" alt="{{ item.name }}">
-                    </div>
-                    <div class="col-md-6">
-                        <h3>{{ item.name }}</h3>
-                        <p>{{ item.description }}</p>
-                        <p><strong>Price:</strong> {{ item.price }}</p>
-                    </div>
-                    {% endif %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                {% if item.image.url %}
+                <img class="card-img-top img-fluid menu-item-image" src="{{ item.image.url }}" alt="{{ item.name }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.name }}</h5>
+                    <p class="card-text">{{ item.description }}</p>
+                    <h4 class="card-price">€{{ item.price }}</h4>
                 </div>
-                <hr>
-            </li>
+            </div>
+        </div>
         {% empty %}
-            <li class="list-group-item">No starters available.</li>
+        <p>No pizzas available.</p>
         {% endfor %}
-    </ul>
-    <h2 class="mt-4">Pastas</h2>
-    <ul class="list-group">
+    </div>
+
+    <h2 class="menu-title mt-4">Pastas</h2>
+    <div class="row card-container">
         {% for item in pastas %}
-        {% cycle 'row1' 'row2' as rowcolors silent %}
-            <li class="list-group-item {{ rowcolors }}">
-                <div class="row">
-                    {% if rowcolors == 'row1' %}
-                    <div class="col-md-6">
-                        <img src="{{ item.image.url }}" class="menu-item-image img-fluid rounded mb-3 mb-md-0" alt="{{ item.name }}">
-                    </div>
-                    <div class="col-md-6">
-                        <h3>{{ item.name }}</h3>
-                        <p>{{ item.description }}</p>
-                        <p><strong>Price:</strong> {{ item.price }}</p>
-                    </div>
-                    {% else %}
-                    <div class="col-md-6 order-md-2">
-                        <img src="{{ item.image.url }}" class="menu-item-image img-fluid rounded mb-3 mb-md-0" alt="{{ item.name }}">
-                    </div>
-                    <div class="col-md-6">
-                        <h3>{{ item.name }}</h3>
-                        <p>{{ item.description }}</p>
-                        <p><strong>Price:</strong> {{ item.price }}</p>
-                    </div>
-                    {% endif %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                {% if item.image.url %}
+                <img class="card-img-top img-fluid menu-item-image" src="{{ item.image.url }}" alt="{{ item.name }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.name }}</h5>
+                    <p class="card-text">{{ item.description }}</p>
+                    <h4 class="card-price">€{{ item.price }}</h4>
                 </div>
-                <hr>
-            </li>
+            </div>
+        </div>
         {% empty %}
-            <li class="list-group-item">No starters available.</li>
+        <p>No pastas available.</p>
         {% endfor %}
-    </ul>
+    </div>
 </div>
 {% endblock %}

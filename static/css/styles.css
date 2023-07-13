@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 /*!
 * Start Bootstrap - Full Width Pics v5.0.6 (https://startbootstrap.com/template/full-width-pics)
 * Copyright 2013-2023 Start Bootstrap
@@ -10834,6 +10835,19 @@ textarea.form-control-lg {
 
 /* custom css */
 
+/* navbar  */
+
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* footer */
+
 footer .social-media {
   display: flex;
   justify-content: center;
@@ -10846,18 +10860,35 @@ footer .social-media a {
   font-size: 20px;
 }
 
+/* menu page styles */
+
+.menu-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.5rem;
+  color: #7a3b2e; 
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
 .menu-item-image {
-  height: 200px;
-  width: 200px;
+  height: 12.5rem;
+  width: 12.5rem;
   object-fit: cover;
 }
 
-.navbar-toggler {
-  border: none;
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.navbar-toggler:focus {
-  outline: none;
-  box-shadow: none;
+.card-container .card {
+  height: 100%;
+}
+
+.card-price {
+  font-size: 1.5em; /* Makes the text larger */
+  font-weight: bold; /* Makes the text bolder */
+  color: #dc3545; /* Makes the text red, you can use any color you prefer */
 }
 
