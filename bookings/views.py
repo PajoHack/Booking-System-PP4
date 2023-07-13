@@ -20,8 +20,8 @@ def index(request):
     return render(request, 'index.html')
 
 
-def admin_home2(request):
-    return render(request, 'admin_home2.html')
+# def admin_home2(request):
+#     return render(request, 'admin_home2.html')
 
 
 def login_view(request):
@@ -185,18 +185,21 @@ class CheckAvailabilityView(View):
 
         table = Table.objects.get(id=table_id)
 
-        # Compute the end time by adding 2 hours to the start time
-        end_time = (datetime.combine(date, time) + timedelta(hours=2)).time()
+        table_bookings = TableBooking.objects.filter(table=table, booking__date=date)
 
-        # Check for any bookings that overlap with the requested time slot
-        table_bookings = TableBooking.objects.filter(
-            table=table, 
-            booking__date=date
-        ).filter(
-            Q(booking__time__lte=time, booking__time__gt=end_time) | Q(booking__time__range=(time, end_time))
-        )
+        overlap_exists = False
+        for table_booking in table_bookings:
+            booking_start = datetime.combine(date, table_booking.booking.time)
+            booking_end = booking_start + timedelta(hours=1, minutes=30)
 
-        if table_bookings.exists():
+            requested_start = datetime.combine(date, time)
+            requested_end = requested_start + timedelta(hours=1, minutes=30)
+
+            if (booking_start <= requested_end) and (requested_start <= booking_end):
+                overlap_exists = True
+                break
+
+        if overlap_exists:
             return JsonResponse({'available': False})
         else:
             return JsonResponse({'available': True})
