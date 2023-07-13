@@ -44,22 +44,22 @@ class BookingForm(forms.ModelForm):
         return booking_date
 
     def clean(self):
-    cleaned_data = super().clean()
+        cleaned_data = super().clean()
 
-    booking_time = cleaned_data.get('time')
-    booking_date = cleaned_data.get('date')
-    tables = cleaned_data.get('tables')
+        booking_time = cleaned_data.get('time')
+        booking_date = cleaned_data.get('date')
+        tables = cleaned_data.get('tables')
 
-    if booking_time and booking_date and tables:
-        for table in tables:
-            latest_booking = Booking.objects.filter(
-                tablebooking__table=table, 
-                date=booking_date
-            ).order_by('-time').first()
+        if booking_time and booking_date and tables:
+            for table in tables:
+                latest_booking = Booking.objects.filter(
+                    tablebooking__table=table, 
+                    date=booking_date
+                ).order_by('-time').first()
 
-            if latest_booking:
-                latest_booking_end_time = (datetime.combine(date.today(), latest_booking.time) + timedelta(hours=2)).time()
-                min_start_time = (datetime.combine(date.today(), latest_booking_end_time) + timedelta(minutes=30)).time()
+                if latest_booking:
+                    latest_booking_end_time = (datetime.combine(date.today(), latest_booking.time) + timedelta(hours=2)).time()
+                    min_start_time = (datetime.combine(date.today(), latest_booking_end_time) + timedelta(minutes=30)).time()
 
-                if booking_time < min_start_time:
-                    self.add_error('time', f'The selected time slot overlaps with a previous booking for Table {table.id}. Please choose a time later than {min_start_time.strftime("%H:%M")}.')
+                    if booking_time < min_start_time:
+                        self.add_error('time', f'The selected time slot overlaps with a previous booking for Table {table.id}. Please choose a time later than {min_start_time.strftime("%H:%M")}.')
