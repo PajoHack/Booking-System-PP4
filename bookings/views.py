@@ -168,9 +168,9 @@ def menu_view(request):
 
     return render(request, 'bookings/menu.html', context)
 
-
-class CheckAvailabilityView(View):
-    def get(self, request, *args, **kwargs):
+        
+def check_availability(request):
+    if request.method == 'GET':
         table_id = request.GET.get('table_id', None)
         date_str = request.GET.get('date', None)
         time_str = request.GET.get('time', None)
@@ -203,7 +203,9 @@ class CheckAvailabilityView(View):
             return JsonResponse({'available': False})
         else:
             return JsonResponse({'available': True})
-        
+    else:
+        return JsonResponse({'detail': 'Invalid request method.'}, status=405)
+    
 
 def handler500(request, *args, **argv):
     return render(request, '500.html', status=500)

@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import error_500_view, error_403_view, CheckAvailabilityView
+from .views import error_500_view, error_403_view, check_availability
 
 
 urlpatterns = [
@@ -15,5 +15,5 @@ urlpatterns = [
     path('menu/', views.menu_view, name="menu"),
     path('500/', error_500_view, name='500_error'),
     path('403/', error_403_view, name='403_error'),
-    path('check_availability/', CheckAvailabilityView.as_view(), name='check_availability'),
+    path('check_availability/', check_availability, name='check_availability'),
 ]

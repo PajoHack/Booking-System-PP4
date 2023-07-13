@@ -50,6 +50,7 @@ class BookingForm(forms.ModelForm):
         booking_time = cleaned_data.get('time')
         booking_date = cleaned_data.get('date')
         tables = cleaned_data.get('tables')
+        guests = cleaned_data.get('guests')
 
         if booking_time and booking_date and tables:
             for table in tables:
@@ -64,3 +65,11 @@ class BookingForm(forms.ModelForm):
 
                     if booking_time < min_start_time:
                         self.add_error('time', f'The selected time slot overlaps with a previous booking for Table {table.id}. Please choose a time later than {min_start_time.strftime("%H:%M")}.')
+
+            # Check if total capacity of tables is sufficient
+            total_capacity = sum(table.seats for table in tables)
+            if total_capacity < guests:
+                self.add_error('guests', 'The total capacity of the selected tables is insufficient for the number of guests. Please select more tables.')
+
+        return cleaned_data
+
