@@ -32,6 +32,27 @@ body {
     min-height: 20px;
 }
 
+/* gallery rules */
+
+.gallery-top {
+    margin-top: 4rem;
+}
+
+.img-fluid {
+    height: 25rem;
+    width: 32rem;
+    object-fit: cover; /* This will prevent distortion of images */
+}
+
+.thumbnail a {
+    color: #333; /* Change color to dark gray */
+    text-decoration: none; /* Removes underline */
+}
+
+.thumbnail a:hover {
+    color: #777; /* Change color to lighter gray when hovering */
+}
+
 @media (min-width: 576px) {
     .center-div {
         width: 90%;
