@@ -19,20 +19,21 @@ class BookingForm(forms.ModelForm):
         
     def clean_time(self):
         booking_time = self.cleaned_data.get('time')
-        if booking_time:
-            # Booking time must be between 12:00 and 21:00.
-            if booking_time < time(12, 0) or booking_time > time(21, 0):
-                raise ValidationError('Booking time must be between 12 midday and 9pm.')
-            
-            # End time is implicitly 2 hours after start time.
-            end_time = (datetime.combine(date.today(), booking_time) + timedelta(hours=2)).time()
 
-            # Subtract one minute from the end time to ensure it aligns with the 30-minute booking steps.
-            end_time = (datetime.combine(date.today(), end_time) - timedelta(minutes=1)).time()
-            
-            # End time should not be later than closing time.
-            if end_time > time(21, 0):
-                raise ValidationError('Booking time plus duration must not exceed closing time.')
+        # Booking time must be between 12:00 and 21:00.
+        if booking_time and (booking_time < time(12, 0) or booking_time > time(21, 0)):
+            raise ValidationError('Booking time must be between 12 midday and 9pm.')
+
+        # End time is implicitly 2 hours after start time.
+        end_time = (datetime.combine(date.today(), booking_time) + timedelta(hours=2)).time()
+
+        # Subtract one minute from the end time to ensure it aligns with the 30-minute booking steps.
+        end_time = (datetime.combine(date.today(), end_time) - timedelta(minutes=1)).time()
+
+        # End time should not be later than closing time.
+        if end_time > time(21, 0):
+            raise ValidationError('Booking time plus duration must not exceed closing time.')
+
         return booking_time
 
     
