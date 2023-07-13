@@ -16,4 +16,5 @@ urlpatterns = [
     path('500/', error_500_view, name='500_error'),
     path('403/', error_403_view, name='403_error'),
     path('check_availability/', check_availability, name='check_availability'),
+    path('gallery/', views.gallery_view, name='gallery'),
 ]

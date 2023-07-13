@@ -207,6 +207,11 @@ def check_availability(request):
         return JsonResponse({'detail': 'Invalid request method.'}, status=405)
     
 
+
+def gallery_view(request):
+    return render(request, 'bookings/gallery.html')
+
+
 def handler500(request, *args, **argv):
     return render(request, '500.html', status=500)
 

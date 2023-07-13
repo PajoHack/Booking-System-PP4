@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Gallery
+{% endblock title %}
+{% block content %}
+
+<!-- Gallery code goes here -->
+
+<!-- Place the Bootstrap gallery code here -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <a href="/images/lights.jpg">
+                    <img src="/images/lights.jpg" alt="Lights" style="width:100%">
+                    <div class="caption">
+                        <p>Lorem ipsum...</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <a href="/images/nature.jpg">
+                    <img src="/images/nature.jpg" alt="Nature" style="width:100%">
+                    <div class="caption">
+                        <p>Lorem ipsum...</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <a href="/images/fjords.jpg">
+                    <img src="/images/fjords.jpg" alt="Fjords" style="width:100%">
+                    <div class="caption">
+                        <p>Lorem ipsum...</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/new_styles.css' %}">
+{% endblock %}
