@@ -20,10 +20,6 @@ def index(request):
     return render(request, 'index.html')
 
 
-# def admin_home2(request):
-#     return render(request, 'admin_home2.html')
-
-
 def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -61,8 +57,14 @@ def register(request):
 
 @login_required
 def profile(request):
-    bookings = Booking.objects.filter(user=request.user)
-    return render(request, 'bookings/profile.html', {'bookings': bookings})
+    now = timezone.localtime(timezone.now())
+    bookings = Booking.objects.filter(user=request.user).order_by('-date', '-time')
+    for booking in bookings:
+        # Combine the date and time into a single datetime object.
+        # This assumes that your Booking model has `date` and `time` fields.
+        booking.datetime = timezone.make_aware(datetime.combine(booking.date, booking.time))
+    
+    return render(request, 'bookings/profile.html', {'bookings': bookings, 'now': now})
 
 
 @login_required
