@@ -16,6 +16,7 @@ from django.db.models import Q
 from datetime import timedelta, datetime
 
 
+
 def index(request):
     return render(request, 'index.html')
 

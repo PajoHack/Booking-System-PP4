@@ -40,6 +40,20 @@
         {% endfor %}
       </tbody>
     </table>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        {% if bookings.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page={{ bookings.previous_page_number }}">Previous</a></li>
+        {% else %}
+          <li class="page-item disabled"><a class="page-link">Previous</a></li>
+        {% endif %}
+        {% if bookings.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ bookings.next_page_number }}">Next</a></li>
+        {% else %}
+          <li class="page-item disabled"><a class="page-link">Next</a></li>
+        {% endif %}
+      </ul>
+    </nav>
   {% else %}
     <p>No bookings available.</p>
   {% endif %}

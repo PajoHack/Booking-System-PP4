@@ -5,9 +5,9 @@ Profile
 {% endblock title %}
 {% block content %}
 <div class="center-div">
-    <h2>Your Profile</h2>
+    <h2 class="profile-title">Profile</h2>
     <p>Welcome, {{ request.user.username }}!</p>
-    <h3>Your Bookings:</h3>
+    <h3 class="profile-title">Bookings</h3>
     {% if bookings %}
         <table class="table table-hover">
             <thead>

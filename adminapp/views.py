@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from bookings.models import MenuItem, Table, Booking
 from .forms import MenuItemForm, TableForm, BookingForm
 from django.contrib.auth.decorators import user_passes_test, login_required
+from django.core.paginator import Paginator
 
 
 def index(request):
@@ -126,7 +127,12 @@ def table_edit(request, pk):
 @login_required
 @user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def booking_list(request):
-    bookings = Booking.objects.all()
+    bookings_list = Booking.objects.all()
+    paginator = Paginator(bookings_list, 10)  # Show 10 bookings per page.
+
+    page_number = request.GET.get('page')
+    bookings = paginator.get_page(page_number)
+
     return render(request, 'adminapp/booking_list.html', {'bookings': bookings})
 
 # new booking
