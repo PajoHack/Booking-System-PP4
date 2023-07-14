@@ -1,26 +1,44 @@
+html, body{
+    min-height: 100vh;
+}
+
+.container-fluid, .row {
+    height: 100%;
+}
+
+.header-spacing {
+    margin-top: 4rem;
+}
+
+.navbar-nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+  
 .navbar.navbar-light.bg-light {
     position: relative;
     z-index: 2;
-    background-color: #000;
+    background-color: #000 !important;
 }
 
 .navbar .nav-link, .navbar .navbar-brand {
-    color: #000;
+    color: #fff !important;
 }
 
 #sidebarMenu {
-    position: relative;
+    position: fixed;
     top: 0;
     bottom: 0;
     width: 200px;
     overflow: auto;
-    height: 100vh;
+    /* height: 100vh; */
     z-index: 1;
-    background-color: #000;
+    background-color: #000 !important;
 }
 
 #sidebarMenu .nav-link {
-    color: #000;
+    color: #fff !important;
 }
 
 /* fixed height for images in menu list page */

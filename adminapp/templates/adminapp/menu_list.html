@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Menu Items</h1>
+  <h1 class="header-spacing">Menu Items</h1>
   <a href="{% url 'adminapp:menu_new' %}" class="btn btn-primary mb-3">Add New Menu Item</a>
   {% if menu_items %}
     <div class="row">
@@ -19,7 +19,7 @@
             <h5 class="card-title">{{ menuitem.name }}</h5>
             <p class="card-text">{{ menuitem.description }}</p>
             <p class="card-text"><small class="text-muted">{{ menuitem.get_category_display }}</small></p>
-            <p class="card-text">${{ menuitem.price }}</p>
+            <p class="card-text">€{{ menuitem.price }}</p>
           </div>
           <div class="card-footer">
             <a href="{% url 'adminapp:menu_edit' menuitem.pk %}" class="btn btn-warning btn-custom">Edit</a>
@@ -33,3 +33,4 @@
     <p>No menu items available.</p>
   {% endif %}
 {% endblock %}
+

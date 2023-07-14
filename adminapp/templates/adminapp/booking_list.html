@@ -3,7 +3,7 @@
 {% block extra_title %} Bookings {% endblock %}
 
 {% block content %}
-  <h1>Bookings</h1>
+  <h1 class="header-spacing">Bookings</h1>
   <a href="{% url 'adminapp:booking_new' %}" class="btn btn-primary mb-3">Add New Booking</a>
 
   {% if bookings %}
