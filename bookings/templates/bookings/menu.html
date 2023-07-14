@@ -11,13 +11,15 @@ Menu
         {% for item in starters %}
         <div class="col-md-6 mb-4">
             <div class="card">
-                {% if item.image.url %}
-                <img class="card-img-top img-fluid menu-item-image" src="{{ item.image.url }}" alt="{{ item.name }}">
-                {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title">{{ item.name }}</h5>
-                    <p class="card-text">{{ item.description }}</p>
-                    <h4 class="card-price">€{{ item.price }}</h4>
+                <div class="card-content d-flex align-items-center">
+                    {% if item.image.url %}
+                    <img class="card-img-top img-fluid menu-item-image flex-grow-0" src="{{ item.image.url }}" alt="{{ item.name }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <p class="card-text">{{ item.description }}</p>
+                        <h4 class="card-price">€{{ item.price }}</h4>
+                    </div>
                 </div>
             </div>
         </div>
@@ -31,18 +33,20 @@ Menu
         {% for item in pizzas %}
         <div class="col-md-6 mb-4">
             <div class="card">
-                {% if item.image.url %}
-                <img class="card-img-top img-fluid menu-item-image" src="{{ item.image.url }}" alt="{{ item.name }}">
-                {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title">{{ item.name }}</h5>
-                    <p class="card-text">{{ item.description }}</p>
-                    <h4 class="card-price">€{{ item.price }}</h4>
+                <div class="card-content d-flex align-items-center">
+                    {% if item.image.url %}
+                    <img class="card-img-top img-fluid menu-item-image flex-grow-0" src="{{ item.image.url }}" alt="{{ item.name }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <p class="card-text">{{ item.description }}</p>
+                        <h4 class="card-price">€{{ item.price }}</h4>
+                    </div>
                 </div>
             </div>
         </div>
         {% empty %}
-        <p>No pizzas available.</p>
+        <p>No Pizza available.</p>
         {% endfor %}
     </div>
 
@@ -51,18 +55,20 @@ Menu
         {% for item in pastas %}
         <div class="col-md-6 mb-4">
             <div class="card">
-                {% if item.image.url %}
-                <img class="card-img-top img-fluid menu-item-image" src="{{ item.image.url }}" alt="{{ item.name }}">
-                {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title">{{ item.name }}</h5>
-                    <p class="card-text">{{ item.description }}</p>
-                    <h4 class="card-price">€{{ item.price }}</h4>
+                <div class="card-content d-flex align-items-center">
+                    {% if item.image.url %}
+                    <img class="card-img-top img-fluid menu-item-image flex-grow-0" src="{{ item.image.url }}" alt="{{ item.name }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <p class="card-text">{{ item.description }}</p>
+                        <h4 class="card-price">€{{ item.price }}</h4>
+                    </div>
                 </div>
             </div>
         </div>
         {% empty %}
-        <p>No pastas available.</p>
+        <p>No starters available.</p>
         {% endfor %}
     </div>
 </div>

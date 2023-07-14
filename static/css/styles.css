@@ -10871,10 +10871,13 @@ footer .social-media a {
   text-transform: uppercase;
 }
 
-.menu-item-image {
-  height: 12.5rem;
-  width: 12.5rem;
-  object-fit: cover;
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card-body {
+  flex: 1;
+  max-width: calc(100% - 12.5rem); /* Adjust as needed */
 }
 
 .card-container {
@@ -10892,3 +10895,12 @@ footer .social-media a {
   color: #dc3545; /* Makes the text red, you can use any color you prefer */
 }
 
+.card-content {
+  flex-wrap: nowrap;
+}
+
+.menu-item-image {
+  width: 12.5rem;  /* Adjust as needed */
+  height: 12.5rem;
+  object-fit: cover; /* This will make the image cover the given space without stretching */
+}
