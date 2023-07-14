@@ -26,19 +26,26 @@ html, body{
     color: #fff !important;
 }
 
+.navbar .nav-link:hover {
+    color: #ff0000 !important;
+}
+
 #sidebarMenu {
     position: fixed;
     top: 0;
     bottom: 0;
     width: 200px;
     overflow: auto;
-    /* height: 100vh; */
     z-index: 1;
     background-color: #000 !important;
 }
 
 #sidebarMenu .nav-link {
     color: #fff !important;
+}
+
+#sidebarMenu .nav-link:hover {
+    color: #ff0000 !important;
 }
 
 /* fixed height for images in menu list page */

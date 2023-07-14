@@ -32,6 +32,9 @@
                         {% else %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
                         {% endif %}
+                        {% if user.is_superuser %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'adminapp:admin_home' %}">Admin App</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
