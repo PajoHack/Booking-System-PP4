@@ -173,3 +173,17 @@ def booking_delete(request, pk):
         booking.delete()
         return redirect('adminapp:booking_list')
     return render(request, 'adminapp/booking_confirm_delete.html', {'object': booking})
+
+
+def admin_home(request):
+    booking_count = Booking.objects.count()
+    menu_item_count = MenuItem.objects.count()
+    table_count = Table.objects.count()
+
+    context = {
+        'booking_count': booking_count,
+        'menu_item_count': menu_item_count,
+        'table_count': table_count,
+    }
+
+    return render(request, 'adminapp/admin_home.html', context)
