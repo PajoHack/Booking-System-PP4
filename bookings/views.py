@@ -85,8 +85,11 @@ def booking_view(request):
             api_secret = os.getenv('MAILJET_SECRET_KEY')
             mailjet = Client(auth=(api_key, api_secret), version='v3.1')
 
+            admin_email = 'pajohack@gmail.com'
+            
             data = {
-                'Messages': [
+                 'Messages': [
+                    # Confirmation email to the user
                     {
                         'From': {
                             'Email': 'patrick.hackman@mail.com',
@@ -108,7 +111,30 @@ def booking_view(request):
                             'guests': str(form.cleaned_data['guests']),
                             'phone_number': form.cleaned_data['phone_number'],
                         },
-                    }
+                    },
+                    # Notification email to the admin
+                    {
+                        'From': {
+                            'Email': 'patrick.hackman@mail.com',
+                            'Name': 'DeAngelo\'s',
+                        },
+                        'To': [
+                            {
+                            'Email': admin_email,
+                            'Name': 'Admin',
+                            }
+                        ],
+                        'TemplateID': 4936543,  # Update this with the Admin Notification Template ID
+                        'TemplateLanguage': True,
+                        'Subject': 'New booking notification',
+                        'Variables': {
+                            'name': form.cleaned_data['your_name'],
+                            'date': str(form.cleaned_data['date']),
+                            'time': str(form.cleaned_data['time']),
+                            'guests': str(form.cleaned_data['guests']),
+                            'phone_number': form.cleaned_data['phone_number'],
+                        },
+                    },
                 ]
             }
 
