@@ -64,3 +64,36 @@ html, body{
 /* .logout-link {
     margin-top: 50px; 
 } */
+
+
+/* Mobile view for bookings list */
+
+/* Mobile view */
+@media (max-width: 767px) {
+
+    .table thead {
+        display: none;
+    }
+    
+    .responsive-table-row {
+      display: block;
+      margin-bottom: 10px;
+      border: solid 1px #ddd;
+    }
+  
+    .responsive-table-cell {
+      display: block;
+      border-bottom: 1px solid #ddd;
+      padding: 10px;
+    }
+  
+    .responsive-table-cell::before {
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+      display: inline-block;
+      width: 100%;
+    }
+}
+  
+  
