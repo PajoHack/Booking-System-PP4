@@ -127,7 +127,7 @@ def table_edit(request, pk):
 @login_required
 @user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def booking_list(request):
-    bookings_list = Booking.objects.all()
+    bookings_list = Booking.objects.all().order_by('id')
     paginator = Paginator(bookings_list, 10)  # Show 10 bookings per page.
 
     page_number = request.GET.get('page')

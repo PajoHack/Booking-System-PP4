@@ -78,3 +78,4 @@ $(function () {
     // Poll every 5 seconds
     setInterval(checkAvailability, 3000);
 });
+
