@@ -1,4 +1,30 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# DeAngelo's Restaurant Booking System
+
+DeAngelo's Restaurant Booking System is a comprehensive digital solution developed to streamline and enhance the dining experience for both customers and administrators of DeAngelo's, a popular local fictitious eatery. The application integrates a range of user-friendly functionalities, offering a seamless interface between customers and staff.
+
+The platform has been primarily developed to cater to the needs of restaurant-goers and the restaurant's administrative personnel. It provides an efficient online booking system for customers seeking to reserve tables at their convenience, while also allowing them to view the restaurant's extensive menu. This interactive, easy-to-navigate system greatly simplifies the booking process and ensures customers can plan their visit to DeAngelo's without any hassle.
+
+For the administrative personnel of DeAngelo's, this system provides a robust back-end solution that offers an overview of the bookings, enables menu management, and handles table arrangements. This ensures smooth operations and improved organization within the restaurant, leading to better service quality and enhanced customer satisfaction.
+
+The DeAngelo's Restaurant Booking System aims to bridge the gap between conventional restaurant management and the growing need for digital interaction in the hospitality industry. With its simple, intuitive design, and effective functionality, it offers a unique, improved dining experience for customers while ensuring efficient, organized operations for the restaurant's staff and administration.
+
+## Existing features 
+
+- Navigation Bar for customers 
+   - When visitors first land on the home page they will see a top nav bar with links to four pages, Home, Menu, Gallery and login. The DeAngelo's branding is also displayed on the left hand side. Clicking the logo returns the user back to the home page.
+   - On larger screens a more traditional navigation is displayed, on smaller screens the navigation reverts to a hamburger menu.
+
+![Screenshot of logo & navigation](documentation/front-facing-navigation.png)
+
+  - Registered users will have extra links to their profile page and to the reservations page. The login link changes to logout.
+
+![Screenshot of logo & navigation](documentation/logged-in-customer.png)
+  
+  - Signed in Admins will have an extra link to the Admin App
+
+![Screenshot of logo & navigation](documentation/logged-in-admin.png)
+
+### Site Home Page
 
 Welcome,
 
