@@ -18,48 +18,60 @@ The DeAngelo's Restaurant Booking System aims to bridge the gap between conventi
 
   - Registered users will have extra links to their profile page and to the reservations page. The login link changes to logout.
 
-![Screenshot of logo & navigation](documentation/logged-in-customer.png)
+![Screenshot of logged in registered user links](documentation/logged-in-customer.png)
   
   - Signed in Admins will have an extra link to the Admin App
 
-![Screenshot of logo & navigation](documentation/logged-in-admin.png)
+![Screenshot of logged in admin links](documentation/logged-in-admin.png)
 
 ### Site Home Page
 
-Welcome,
+The site home page contains a hero image of the Italian countryside. It gives the visitor a sense of the rich, serene, and rustic ambiance associated with traditional Italian dining, setting the stage for a culinary journey through the delights of Italian cuisine.
 
-This is the Code Institute student template for Codeanywhere. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+There is also a section containing a brief synopsis of the restaurant's history.
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Codeanywhere and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **May 11th, 2023**
+![Screenshot of the top half of the home page](documentation/front-page-top.png)
 
-## Codeanywhere Reminders
+Scrolling to the lower segment of the home page, the viewer is greeted with a warmly inviting image of the restaurant's interior. The restaurant address and phone number are also displayed.
 
-To run a frontend (HTML, CSS, Javascript only) application in Codeanywhere, in the terminal, type:
+![Screenshot of the bottom half of the home page](documentation/front-page-bottom.png)
 
-`python3 -m http.server`
+### Site Footer
 
-A button should appear to click: _Open Preview_ or _Open Browser_.
+the site footer is displayed on all front facing pages. It contains the copyright symbol. Here, visitors can explore a wider array of content concerning the restaurant, with every link thoughtfully designed to open in a separate tab, ensuring undisturbed navigation."
 
-To run a frontend (HTML, CSS, Javascript only) application in Codeanywhere with no-cache, you can use this alias for `python3 -m http.server`.
+![Screenshot of the footer](documentation/footer.png)
 
-`http_server`
+### Menu Page
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+The menu page contains vibrant imagery of our delectable dishes. Accompanied by both detailed descriptions and transparent pricing, it offers an enticing preview of the culinary delights that await our guests.
 
-A button should appear to click: _Open Preview_ or _Open Browser_.
+![Screenshot of the footer](documentation/menu.png)
 
-In Codeanywhere you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+### Gallery Page
 
-To log into the Heroku toolbelt CLI:
+The gallery page showcases an array of captivating images which we feel captures the essence of our restaurant. To elevate user experience, a simple click on an image triggers a seamless on-page enlargement, offering an up-close view of the image. Additionally, users can effortlessly navigate through these magnified images - right and left - without the need to close each picture first, thereby ensuring a smooth, uninterrupted exploration."
 
-1. Log in to your Heroku account and go to _Account Settings_ in the menu under your avatar.
-2. Scroll down to the _API Key_ and click _Reveal_
-3. Copy the key
-4. In Codeanywhere, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+![Screenshot of the footer](documentation/gallery.png)
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+### Reservation Page
 
----
+The reservation page is only available to registered users and displays the booking form. At the top of the form there is a paragraph explaining how to complete the form. Once the user enters details, script runs in the background to check to see if the table(s) is available. There is validation built into the form to ensure a date in the past cannot be selected. A table becomes available again two hours after being selcted. Also there is a check to make sure that the number of guests is not greater than the capacity of the tables selected. The submit button is disabled until all checks have been passed.
 
-Happy coding!
+The reservation page, accessible only to registered users, elegantly presents a booking form with an accompanying guide on how to fill it out. As the user inputs their details, a script diligently checks the availability of the requested tables. The form incorporates an intelligent validation system, eliminating the possibility of selecting past dates and ensuring that the number of guests does not surpass the capacity of the chosen tables. Furthermore, each table becomes available for new reservations two hours after the start of the previous booking. Only when all these checks are satisfied does the form's submission button become enabled, ensuring a smooth and error-free reservation experience.
+
+![Screenshot of the booking form](documentation/booking-form.png)
+
+This message is displayed when the table is available and all necessary information is provided.
+
+![Screenshot of table is available message](documentation/table-available.png)
+
+This message is displayed when the table is not available.
+
+![Screenshot of table is not available message](documentation/table-not-available.png)
+
+These errors are displayed if a date in the past is selected or when a time slot selected is too close to closing time.
+
+![Screenshot of errors for past dates and late bookings](documentation/past-booking-and-too-close-to-closing-time.png)
+
+### Profile Page

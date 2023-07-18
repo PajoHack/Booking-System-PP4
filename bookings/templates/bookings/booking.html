@@ -14,7 +14,7 @@ Reservation
     <form method="post" class="form" id="res-form">
         {% csrf_token %}
         <fieldset>
-            <legend>Contact Information</legend>
+            <legend class="menu-title">Booking Form</legend>
             {% for field in form %}
                 <div class="form-group">
                     <label for="{{ field.id_for_label }}">{{ field.label }}</label>
