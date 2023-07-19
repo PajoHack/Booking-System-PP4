@@ -56,8 +56,6 @@ The gallery page showcases an array of captivating images which we feel captures
 
 ### Reservation Page
 
-The reservation page is only available to registered users and displays the booking form. At the top of the form there is a paragraph explaining how to complete the form. Once the user enters details, script runs in the background to check to see if the table(s) is available. There is validation built into the form to ensure a date in the past cannot be selected. A table becomes available again two hours after being selcted. Also there is a check to make sure that the number of guests is not greater than the capacity of the tables selected. The submit button is disabled until all checks have been passed.
-
 The reservation page, accessible only to registered users, elegantly presents a booking form with an accompanying guide on how to fill it out. As the user inputs their details, a script diligently checks the availability of the requested tables. The form incorporates an intelligent validation system, eliminating the possibility of selecting past dates and ensuring that the number of guests does not surpass the capacity of the chosen tables. Furthermore, each table becomes available for new reservations two hours after the start of the previous booking. Only when all these checks are satisfied does the form's submission button become enabled, ensuring a smooth and error-free reservation experience.
 
 ![Screenshot of the booking form](documentation/booking-form.png)
@@ -74,4 +72,78 @@ These errors are displayed if a date in the past is selected or when a time slot
 
 ![Screenshot of errors for past dates and late bookings](documentation/past-booking-and-too-close-to-closing-time.png)
 
+Upon making a successful reservation, an automated confirmation email is dispatched to the email address specified in the booking form. Simultaneously, a duplicate of this email is forwarded to the administration group to ensure seamless communication and efficient management.
+
+![Screenshot of email notification](documentation/booking-notification.png)
+
 ### Profile Page
+
+The profile page neatly catalogues all the bookings made by a user, affording them the convenience of managing their reservations. Users have the capability to edit or delete their upcoming bookings, ensuring flexibility. However, any bookings from the past remain uneditable and undeletable.
+
+![Screenshot of the profile page](documentation/profile-page.png)
+
+### Login Link
+
+Regular users, upon successful login, are directed to their profile page where they can manage their reservations. Administrators, on the other hand, are guided straight to the admin application, allowing for seamless management of the platform. Non registerd users can click the register link which opens the registration form. 
+
+![Screenshot of the login form](documentation/login.png)
+
+### Registration
+
+The registration form facilitates the creation of user accounts. To ensure a smooth and transparent registration process, the form clearly outlines the guidelines and requirements for successful account creation.
+
+![Screenshot of the registration form](documentation/register.png)
+
+### Admin App
+
+The Admin App serves as the central hub for site administrators to manage and optimize the DeAngelo's site. The home page of the admin panel displays basic site information.
+
+![Screenshot of admin home page](documentation/admin-home.png)
+
+### Admin Navigation
+
+On devices with larger screen resolutions, the site navigation retains a traditional look and feel. However, for mobile screens, the navigation transitions to a responsive hamburger menu, optimizing user interaction on smaller devices.
+
+The admin navigation contains site management links for, DeAngelo's website, menu items, tables, bookings and the logout feature.
+
+![Screenshot of admin navigation](documentation/admin-navigation.png)
+
+### Admin Menu Items
+
+The 'Menu Items' page displays all current dishes at DeAngelo's. Admins can easily edit or delete items via dedicated buttons. There's also a convenient button for adding new items.
+
+![Screenshot of admin menu items page](documentation/admin-menu-items.png)
+
+Selecting the 'Add New Menu Item' button displays a form for inputting details of a new menu item.
+
+![Screenshot of admin add menu item](documentation/admin-add-item.png)
+
+Selecting the 'Edit' button of a menu item displays a form for editing the details of a menu item.
+
+![Screenshot of admin edit menu item](documentation/admin-edit-menu-item.png)
+
+Clicking the 'Delete' button for a menu item prompts a confirmation screen. If 'Confirm Delete' is chosen, the menu item is permanently removed, opting for 'Cancel' brings the admin back to the menu item overview.
+
+![Screenshot of delete item confirmation screen](documentation/admin-delete-item.png)
+
+### Admin Tables
+
+The tables pages allows management of the tables in DeAngelo's. Admins can add, modify, or remove tables as required.
+
+![Screenshot of the admin tables page](documentation/admin-tables-page.png)
+
+Adding, editing and deleting tables.
+
+![Screenshot of forms for adding, editing, deleting tables](documentation/admin-add-edit-delete-tables.png)
+
+### Admin Bookings Page
+
+The admin bookings page lists all bookings for the restaurant.It enables the addition of new bookings for instances when customers prefer a phone call over online booking. Administrators can also modify or cancel reservations directly from this page for comprehensive booking management.
+
+This page also has pagination, 10 bookings per page.
+
+The add, edit and delete bookings forms are almost identical to the table management forms.
+
+![Screenshot of the admin bookings page](documentation/admin-bookings-page.png)
+
+## Features Left to Implement

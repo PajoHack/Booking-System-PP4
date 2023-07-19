@@ -10904,3 +10904,7 @@ footer .social-media a {
   height: 12.5rem;
   object-fit: cover; /* This will make the image cover the given space without stretching */
 }
+
+.background-text {
+  background-color: #000;
+}
