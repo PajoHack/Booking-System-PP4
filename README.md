@@ -8,6 +8,8 @@ For the administrative personnel of DeAngelo's, this system provides a robust ba
 
 The DeAngelo's Restaurant Booking System aims to bridge the gap between conventional restaurant management and the growing need for digital interaction in the hospitality industry. With its simple, intuitive design, and effective functionality, it offers a unique, improved dining experience for customers while ensuring efficient, organized operations for the restaurant's staff and administration.
 
+![Screenshot of logo & navigation](documentation/screenshot-of-responsivness.png)
+
 ## Existing features 
 
 - Navigation Bar for customers 
@@ -147,3 +149,74 @@ The add, edit and delete bookings forms are almost identical to the table manage
 ![Screenshot of the admin bookings page](documentation/admin-bookings-page.png)
 
 ## Features Left to Implement
+
+## Testing
+
+### Validator Testing
+
+### Unfixed Bugs
+
+- Yahoo emails
+
+## Deployment
+
+This section walks you through the process of deploying this project to a production environment. The project uses Django for backend development, various supporting libraries for enhanced functionalities, and was ultimately deployed via Heroku.
+
+### Django & supporting libraries
+
+- The site was ultimatley deployed through Heroku. The CI gitpod-full-template was used initially for the bases of the project. On GitHub a repository was created via the template. Next a gitpod workspace was created by clicking the gitpod button on the repository home page. 
+
+- With the workspace running I created a Django project by typing a command in the terminal. The command to create a project is django-admin startproject deangelos . 
+
+- Next I installed Gunicorn. It was installed with the command pip3 install 'django<4' gunicorn. Gunicorn is a pure-Python HTTP server for WSGI applications.
+
+- Then I installed the libraries required by the project. The command pip3 install dj_database_url==0.5.0 psycopg2 was used to enable interactions with PostgreSQL from the Python scripting language.
+
+- Next up was Cloudinary. It was used to store the images used in the project. To install the library I ran these  commands, pip3 install dj3-cloudinary-storage & pip3 install urllib3==1.26.15
+
+- The requirements.txt file was created with the terminal command pip3 freeze --local > requirements.txt
+
+- After this, I created the fist app for the project. It was called 'bookings' and was created by running thos command, python3 manage.py startapp bookings.
+
+- I then added the new app called 'bookings' to installed apps section of settimgs.py .
+
+- I later installed Django widget tweaks to use for some form fields used in the bookings app. I installed this library with thos command, pip install django-widget-tweaks. I had to update my requirements file after installing widget-tweaks.
+
+- As I added a new app i needed to migrate my changes. I done this with python3 manage.py migrate .
+
+- I tested to see if the site was running with the command python3 manage.py runserver . I got a 'DisallowedHost' error message, telling me I needed to add the hostname to the allowed hosts section of settings.py . Once I done that and ran python3 manage.py runserver again, I verified that the site could by served by gitpod.
+
+### Heroku
+
+- I needed to create an external database to store the data for my project. I achieved this by logging into my ElephatSQL account, selecting 'Create New Instance' and giving the database a name. On the next screen I selected Europe West as the region and clicked the review button followed by the 'Create Instance' button. I retuned to the dashboard, selected the database I had just created. There I was able to copy the url of the newly created DB, I need this in order to connect it to a Heroku app.
+
+- In Heroku I created an app, it needs to have a unique name. In the setting tab of the app I clicked 'Reveal Config Vars' . Here I added a variable called DATABASE_URL and for the value I pasted in the url of my ElephantSQL database. This created a connection between the two.
+
+- Back in the terminal i created an env file by typing touch env.py . Here I imported the os library and set up environment variables. One of which was the url to the ElephantSQL database I had just created. 
+
+- I created a serct key and added it as a config var in Heroku.
+
+- I then imported the env.py file into my settings.py file. I removed the unsecure secret key and instead included os.environ.get('SECRET_KEY'). I commented out the old database config and added my own database section which linked to the ElephantSQL database. I saved all files and made migrations with python3 manage.py migrate .
+
+- Then, I logged into my Cloudinary account. I nedded my API Environment Variable, I copied it from the dashboard. Back in env.py I added another variable there for CLOUDINARY_URL with the copied API Cloudinary key. I also added Cloudinary to the allowed apps section of settings.py .
+
+- Back in Heroku I created the same config var with the Cloudinary API key. I added another var, DISABLE_COLLECTSTATIC and set it to the value 1. This was a temporary step so that when I deployed to Heroku for this first time, it would not fail for the reason of not yet having static files in my project.
+
+- Next up I needed to tell Django to use Cloudinary to store media and static files. I done this by adding STATICFILES_STORAGE ='cloudinary_storage.storage StaticHashedCloudinaryStorage' STATICFILES_DIRS = [os.path.join(BASE_DIR,'static'), ] STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles') 
+MEDIA_URL = '/media'DEFAULT_FILE_STORAGE ='cloudinary_storage.storage.MediaCloudinaryStorage' to settings.py .
+
+- I then linked to the templates directory TEMPLATES_DIR = os.path.join(BASE_DIR,'templates') again in settings.py .
+
+- I also needed to add the Heroku app to allowed hosts. ALLOWED_HOSTS = ["booking-system-pp4.herokuapp.com"] .
+
+- I also needed to create the Procfile. This specifies the commands that are executed. by an Heroku app on startup. In the Procfile I added web: gunicorn deangelos.wsgi to act as a web server interface.
+
+- Then I added all files, commited and pushed to GitHub. Next I went to Heroku and manually deployed from the main branch after connecting to it. After the first successful Heroku deployment I changed the setting to automatically deploy when I push to GitHub.
+
+The entire process led to a smooth deployment on Heroku with an interactive and user-friendly restaurant booking application ready for public access.
+
+## Credits
+
+- The home page template and css was taken from [Start Bootstrap](https://startbootstrap.com/template/full-width-pics)
+
+## Media
