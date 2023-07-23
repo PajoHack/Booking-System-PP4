@@ -72,8 +72,8 @@ def profile(request):
 def booking_view(request):
     if request.method == 'POST':
         form = BookingForm(request.POST)
-        print(f"Form is valid: {form.is_valid()}")
-        print(f"Form errors: {form.errors}")
+        # print(f"Form is valid: {form.is_valid()}")
+        # print(f"Form errors: {form.errors}")
         if form.is_valid():
             booking = form.save(commit=False)
             booking.user = request.user
@@ -139,8 +139,6 @@ def booking_view(request):
             }
 
             result = mailjet.send.create(data=data)
-            # print(result.status_code)
-            # print(result.json())
 
             return redirect('profile')
     else:
@@ -204,7 +202,7 @@ def check_availability(request):
         date_str = request.GET.get('date', None)
         time_str = request.GET.get('time', None)
 
-        print(f"table_id: {table_id}, date: {date_str}, time: {time_str}")
+        # print(f"table_id: {table_id}, date: {date_str}, time: {time_str}")
 
         if not table_id or not date_str or not time_str:
             return JsonResponse({'detail': 'Invalid request.'}, status=400)

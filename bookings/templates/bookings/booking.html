@@ -36,6 +36,11 @@ Reservation
         </fieldset>
         <p id="message"></p>
         <input type="submit" value="Submit" class="btn btn-primary" id="submitButton">
+        {% if edit_mode %}
+        <a href="{% url 'profile' %}" class="btn btn-secondary">Cancel</a>
+        {% else %}
+            <a href="{% url 'index' %}" class="btn btn-secondary">Cancel</a>
+        {% endif %}
         <div id="feedback"></div>
     </form>
 </div>

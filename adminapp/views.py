@@ -175,6 +175,8 @@ def booking_delete(request, pk):
     return render(request, 'adminapp/booking_confirm_delete.html', {'object': booking})
 
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def admin_home(request):
     booking_count = Booking.objects.count()
     menu_item_count = MenuItem.objects.count()

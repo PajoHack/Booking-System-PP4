@@ -35,15 +35,16 @@ $(function () {
             if (tableCheckboxes[i].checked) {
                 const tableId = tableCheckboxes[i].value;
                 const date = dateInput.value;
-
-                // Convert 12-hour time format to 24-hour time format
                 const timeParts = timeInput.value.split(" ");
                 let [hours, minutes] = timeParts[0].split(":");
-                if (timeParts[1].toLowerCase() === "pm" && hours != "12") {
-                    hours = parseInt(hours, 10) + 12;
-                } else if (timeParts[1].toLowerCase() === "am" && hours == "12") {
-                    hours = "00";
+                if (timeParts.length > 1) {
+                    if (timeParts[1].toLowerCase() === "pm" && hours != "12") {
+                        hours = parseInt(hours, 10) + 12;
+                    } else if (timeParts[1].toLowerCase() === "am" && hours == "12") {
+                        hours = "00";
+                    }
                 }
+
                 const time = `${hours}:${minutes}:00`; // Add seconds to match Django's TimeField format
 
                 checks.push(
