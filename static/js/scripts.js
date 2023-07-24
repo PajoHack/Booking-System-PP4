@@ -1,4 +1,6 @@
+// Wrap everything in jQuery's $(function () {}) to wait for the document to be ready
 $(function () {
+    // Initialize timepicker with the specific format and restrictions
     $('#datetimepicker').timepicker({
         'timeFormat': 'h:mm p',
         'minTime': '12:00pm',
@@ -6,6 +8,7 @@ $(function () {
         'step': 30
     });
 
+    // Grab relevant DOM elements
     const dateInput = document.querySelector('#date');
     const timeInput = document.querySelector('#datetimepicker');
     const message = document.querySelector('#message');
@@ -13,6 +16,7 @@ $(function () {
     const tableCheckboxes = document.getElementsByName('tables');
     const form = document.querySelector('#res-form');
 
+    // Event listener to format time on form submission
     form.addEventListener('submit', function (e) {
         const timeParts = timeInput.value.split(" ");
         let [hours, minutes] = timeParts[0].split(":");
@@ -26,11 +30,13 @@ $(function () {
         timeInput.value = time; // set the time input to the new formatted time.
     });
 
+    // Function to check the availability of selected tables
     function checkAvailability() {
         message.textContent = '';
         submitButton.disabled = false;
 
         let checks = [];
+        // Add event listeners to trigger the checkAvailability function
         for (let i = 0; i < tableCheckboxes.length; i++) {
             if (tableCheckboxes[i].checked) {
                 const tableId = tableCheckboxes[i].value;
@@ -76,7 +82,7 @@ $(function () {
     dateInput.addEventListener('input', checkAvailability);
     timeInput.addEventListener('input', checkAvailability);
 
-    // Poll every 5 seconds
+    // Call checkAvailability every 3 seconds to keep checking the table availability in real-time
     setInterval(checkAvailability, 3000);
 });
 

@@ -5,6 +5,18 @@ from datetime import datetime, date, time, timedelta
 from .models import Table, Booking, TableBooking
 
 class BookingForm(forms.ModelForm):
+    """
+    Represents a booking form with fields for creating or updating a booking.
+
+    Attributes:
+        date (DateField): The date of the booking.
+        time (TimeField): The time of the booking.
+        guests (IntegerField): The number of guests for the booking.
+        tables (ModelMultipleChoiceField): The tables being booked.
+        your_name (CharField): The name of the person making the booking.
+        phone_number (CharField): The contact phone number of the person making the booking.
+        email (EmailField): The email address of the person making the booking.
+    """
     date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date', 'id': 'date'}))
     time = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'text', 'id': 'datetimepicker'}))
     guests = forms.IntegerField(min_value=1, max_value=28, widget=forms.NumberInput(attrs={'min': '1', 'max': '28', 'id': 'guests'}))
@@ -18,6 +30,14 @@ class BookingForm(forms.ModelForm):
         fields = ['date', 'time', 'guests', 'tables', 'your_name', 'phone_number', 'email']
         
     def clean_time(self):
+        """
+        Validate the time field of the form.
+
+        The booking time must be between 12:00 and 21:00 and must not overlap with the restaurant's closing time.
+
+        Returns:
+            datetime.time: The validated booking time.
+        """
         booking_time = self.cleaned_data.get('time')
 
         # Booking time must be between 12:00 and 21:00.
@@ -38,6 +58,14 @@ class BookingForm(forms.ModelForm):
 
     
     def clean_date(self):
+        """
+        Validate the date field of the form.
+
+        The booking date cannot be in the past.
+
+        Returns:
+            datetime.date: The validated booking date.
+        """
         booking_date = self.cleaned_data.get('date')
         if booking_date:
             if booking_date < datetime.date(datetime.now()):
@@ -45,6 +73,14 @@ class BookingForm(forms.ModelForm):
         return booking_date
 
     def clean(self):
+        """
+        Validate the form.
+
+        Check for table availability and capacity before confirming the booking.
+
+        Returns:
+            dict: The validated data.
+        """
         cleaned_data = super().clean()
 
         booking_time = cleaned_data.get('time')

@@ -10878,7 +10878,7 @@ footer .social-media a {
 
 .card-body {
   flex: 1;
-  max-width: calc(100% - 12.5rem); /* Adjust as needed */
+  max-width: calc(100% - 12.5rem); 
 }
 
 .card-container {
@@ -10891,9 +10891,9 @@ footer .social-media a {
 }
 
 .card-price {
-  font-size: 1.5em; /* Makes the text larger */
-  font-weight: bold; /* Makes the text bolder */
-  color: #dc3545; /* Makes the text red, you can use any color you prefer */
+  font-size: 1.5em; 
+  font-weight: bold; 
+  color: #dc3545; 
 }
 
 .card-content {
@@ -10901,9 +10901,9 @@ footer .social-media a {
 }
 
 .menu-item-image {
-  width: 12.5rem;  /* Adjust as needed */
+  width: 12.5rem;  
   height: 12.5rem;
-  object-fit: cover; /* This will make the image cover the given space without stretching */
+  object-fit: cover;
 }
 
 .background-text {

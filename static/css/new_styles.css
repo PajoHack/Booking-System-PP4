@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
 /* make the footer stick to the bottom of the viewport */
 
 body {
@@ -24,7 +25,6 @@ body {
 }
   
 .footer {
-    /* height: 3rem; */
     margin-top: auto;
 }
   
@@ -51,16 +51,16 @@ body {
 .img-fluid {
     height: 25rem;
     width: 32rem;
-    object-fit: cover; /* This will prevent distortion of images */
+    object-fit: cover; 
 }
 
 .thumbnail a {
-    color: #333; /* Change color to dark gray */
-    text-decoration: none; /* Removes underline */
+    color: #333; 
+    text-decoration: none; 
 }
 
 .thumbnail a:hover {
-    color: #777; /* Change color to lighter gray when hovering */
+    color: #777; 
 }
 
 @media (min-width: 576px) {

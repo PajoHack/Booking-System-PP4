@@ -8,7 +8,6 @@ from .forms import BookingForm
 from .models import Booking, create_booking, MenuItem, Table, TableBooking
 from mailjet_rest import Client
 import os
-from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
 from django.views import View
 from django.utils import timezone
@@ -18,10 +17,17 @@ from datetime import timedelta, datetime
 
 
 def index(request):
+    """
+    View to display the homepage.
+    """
     return render(request, 'index.html')
 
 
 def login_view(request):
+    """
+    View for user login. Authenticates user and redirects to 
+    either admin home or profile depending on user type.
+    """
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -39,11 +45,18 @@ def login_view(request):
     
 
 def logout_view(request):
+    """
+    View for user logout. Redirects to login page after logout.
+    """
     logout(request)
     return redirect('login')
 
  
 def register(request):
+    """
+    View for user registration. 
+    Creates a new user and redirects to login page.
+    """
     if request.method == 'POST':
         form = UserCreationForm(request.POST) 
         if form.is_valid():
@@ -58,6 +71,10 @@ def register(request):
 
 @login_required
 def profile(request):
+    """
+    Profile view for the logged in user. 
+    Displays all bookings of the user.
+    """
     now = timezone.localtime(timezone.now())
     bookings = Booking.objects.filter(user=request.user).order_by('-date', '-time')
     for booking in bookings:
@@ -70,6 +87,10 @@ def profile(request):
 
 @login_required
 def booking_view(request):
+    """
+    View for booking a table. 
+    Allows a logged in user to book a table and sends confirmation email.
+    """
     if request.method == 'POST':
         form = BookingForm(request.POST)
         # print(f"Form is valid: {form.is_valid()}")
@@ -149,6 +170,10 @@ def booking_view(request):
 
 @login_required
 def edit_booking_view(request, pk):
+    """
+    View for editing an existing booking. 
+    Allows a logged in user to modify a booking.
+    """
 
     booking = get_object_or_404(Booking, id=pk, user=request.user)
 
@@ -173,6 +198,10 @@ def edit_booking_view(request, pk):
 
 @login_required
 def delete_booking_view(request, pk):
+    """
+    View for deleting a booking. 
+    Allows a logged in user to delete a booking of their own.
+    """
     booking = get_object_or_404(Booking, id=pk, user=request.user)
     
     if request.method == 'POST':
@@ -183,6 +212,10 @@ def delete_booking_view(request, pk):
 
 
 def menu_view(request):
+    """
+    View to display the restaurant menu. 
+    Segregates menu items into starters, pizzas and pastas.
+    """
     starters = MenuItem.objects.filter(category='ST')
     pizzas = MenuItem.objects.filter(category='PI')
     pastas = MenuItem.objects.filter(category='PA')
@@ -197,6 +230,9 @@ def menu_view(request):
 
         
 def check_availability(request):
+    """
+    View to check table availability for a given date and time.
+    """
     if request.method == 'GET':
         table_id = request.GET.get('table_id', None)
         date_str = request.GET.get('date', None)

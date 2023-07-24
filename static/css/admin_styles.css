@@ -61,14 +61,8 @@ html, body{
     object-position: center;
 }
 
-/* .logout-link {
-    margin-top: 50px; 
-} */
-
-
 /* Mobile view for bookings list */
 
-/* Mobile view */
 @media (max-width: 767px) {
 
     .table thead {

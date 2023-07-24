@@ -6,21 +6,24 @@ from django.contrib.auth.decorators import user_passes_test, login_required
 from django.core.paginator import Paginator
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the adminapp index.")
+# def index(request):
+#     return HttpResponse("Hello, world. You're at the adminapp index.")
 
 
 def superuser_check(user):
+    """Helper function to check if a user is a superuser."""
     return user.is_superuser
 
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def admin_home(request):
+    """View to handle the admin homepage."""
     return render(request, 'adminapp/admin_home.html')
 
 
 def not_superuser(request):
+    """View to handle the page that is shown when the user is not a superuser."""
     return render(request, 'adminapp/not_superuser.html')
 
 
@@ -29,6 +32,7 @@ def not_superuser(request):
 @login_required
 @user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def menu_list(request):
+    """View to display a list of menu items."""
     menu_items = MenuItem.objects.all()
     return render(request, 'adminapp/menu_list.html', {'menu_items': menu_items})
 
@@ -36,6 +40,7 @@ def menu_list(request):
 @login_required
 @user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def menu_new(request):
+    """View to handle the creation of new menu items."""
     if request.method == "POST":
         form = MenuItemForm(request.POST, request.FILES)
         if form.is_valid():
@@ -49,6 +54,7 @@ def menu_new(request):
 @login_required
 @user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def menu_edit(request, pk):
+    """View to handle the editing of menu items."""
     menu_item = get_object_or_404(MenuItem, pk=pk)
     if request.method == "POST":
         form = MenuItemForm(request.POST, request.FILES, instance=menu_item)
@@ -63,6 +69,7 @@ def menu_edit(request, pk):
 @login_required
 @user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def menu_delete(request, pk):
+    """View to handle the deletion of menu items."""
     menu_item = get_object_or_404(MenuItem, pk=pk)
     if request.method == "POST":
         menu_item.delete()
@@ -76,6 +83,7 @@ def menu_delete(request, pk):
 @login_required
 @user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def table_list(request):
+    """View to display a list of tables."""
     tables = Table.objects.all()
     return render(request, 'adminapp/table_list.html', {'tables': tables})
 
@@ -83,6 +91,7 @@ def table_list(request):
 @login_required
 @user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def table_new(request):
+    """View to handle the creation of new tables."""
     if request.method == "POST":
         form = TableForm(request.POST)
         if form.is_valid():
@@ -97,6 +106,7 @@ def table_new(request):
 @login_required
 @user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def table_delete(request, pk):
+    """View to handle the deletion of tables."""
     table = get_object_or_404(Table, pk=pk)
     if request.method == "POST":
         table.delete()
@@ -108,6 +118,7 @@ def table_delete(request, pk):
 @login_required
 @user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def table_edit(request, pk):
+    """View to handle the editing of tables."""
     table = get_object_or_404(Table, pk=pk)
 
     if request.method == 'POST':
@@ -127,6 +138,7 @@ def table_edit(request, pk):
 @login_required
 @user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def booking_list(request):
+    """View to display a list of bookings."""
     bookings_list = Booking.objects.all().order_by('id')
     paginator = Paginator(bookings_list, 10)  # Show 10 bookings per page.
 
@@ -139,6 +151,7 @@ def booking_list(request):
 @login_required
 @user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def booking_new(request):
+    """View to handle the creation of new bookings."""
     if request.method == "POST":
         form = BookingForm(request.POST)
         if form.is_valid():
@@ -154,6 +167,7 @@ def booking_new(request):
 @login_required
 @user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def booking_edit(request, pk):
+    """View to handle the editing of bookings."""
     booking = get_object_or_404(Booking, pk=pk)
     if request.method == "POST":
         form = BookingForm(request.POST, instance=booking)
@@ -168,6 +182,7 @@ def booking_edit(request, pk):
 @login_required
 @user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def booking_delete(request, pk):
+    """View to handle the deletion of bookings."""
     booking = get_object_or_404(Booking, pk=pk)
     if request.method == 'POST':
         booking.delete()
@@ -178,6 +193,9 @@ def booking_delete(request, pk):
 @login_required
 @user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def admin_home(request):
+    """View to handle the admin homepage, 
+    showing counts of bookings, menu items, and tables.
+    """
     booking_count = Booking.objects.count()
     menu_item_count = MenuItem.objects.count()
     table_count = Table.objects.count()

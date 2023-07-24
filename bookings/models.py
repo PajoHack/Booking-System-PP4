@@ -7,6 +7,13 @@ from cloudinary.models import CloudinaryField
 
 
 class Table(models.Model):
+    """
+    Represents a table in the restaurant.
+    
+    Attributes:
+        table_number (IntegerField): The table number in the restaurant.
+        seats (IntegerField): The number of seats at the table.
+    """
     table_number = models.IntegerField(unique=True)
     seats = models.IntegerField()
     
@@ -15,6 +22,20 @@ class Table(models.Model):
 
 
 class Booking(models.Model):
+    """
+    Represents a booking made by a user.
+
+    Attributes:
+        user (ForeignKey): The user who made the booking.
+        date (DateField): The date of the booking.
+        time (TimeField): The time of the booking.
+        guests (IntegerField): The number of guests for the booking.
+        your_name (CharField): The name of the person making the booking.
+        email (EmailField): The email address of the person making the booking.
+        phone_number (CharField): The contact phone number of the person making the booking.
+        created_at (DateTimeField): The date and time the booking was made.
+        tables (ManyToManyField): The tables booked.
+    """
     user = models.ForeignKey(User, related_name='bookings', on_delete=models.CASCADE)
     date = models.DateField()
     time = models.TimeField()
@@ -27,6 +48,13 @@ class Booking(models.Model):
 
 
 class TableBooking(models.Model):
+    """
+    Intermediate model for ManyToMany relationship between Booking and Table.
+
+    Attributes:
+        table (ForeignKey): The table being booked.
+        booking (ForeignKey): The booking the table is for.
+    """
     table = models.ForeignKey(Table, on_delete=models.CASCADE)
     booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
 
@@ -37,12 +65,37 @@ class TableBooking(models.Model):
 
 @transaction.atomic
 def create_booking(user, date, time, guests, your_name, email, tables):
+    """
+    Create a booking and associated table bookings atomically.
+
+    Args:
+        user (User): The user making the booking.
+        date (datetime.date): The date of the booking.
+        time (datetime.time): The time of the booking.
+        guests (int): The number of guests for the booking.
+        your_name (str): The name of the person making the booking.
+        email (str): The email address of the person making the booking.
+        tables (list): The tables being booked.
+
+    Returns:
+        None
+    """
     booking = Booking.objects.create(user=user, date=date, time=time, guests=guests, your_name=your_name, email=email)
     for table in tables:
         TableBooking.objects.create(table=table, booking=booking)
 
 
 class MenuItem(models.Model):
+    """
+    Represents a menu item in the restaurant.
+
+    Attributes:
+        name (CharField): The name of the menu item.
+        description (TextField): A short description of the item.
+        price (DecimalField): The price of the menu item.
+        category (CharField): The category of the menu item (e.g., starters, pizza, pasta).
+        image (CloudinaryField): An image of the menu item.
+    """
     CATEGORY_CHOICES = [
         ('ST', 'Starters'),
         ('PI', 'Pizza'),
@@ -60,6 +113,12 @@ class MenuItem(models.Model):
   
 
 class Profile(models.Model):
+    """
+    Represents a user profile.
+
+    Attributes:
+        user (OneToOneField): The user the profile belongs to.
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -67,10 +126,31 @@ class Profile(models.Model):
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
+    """
+    Create a user profile when a user is created.
+
+    Args:
+        sender (Model): The model class. 
+        instance (Model instance): The actual instance being saved.
+        created (bool): True if a new record was created.
+
+    Returns:
+        None
+    """
     if created:
         Profile.objects.create(user=instance)
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
+    """
+    Save a user profile when a user is saved.
+
+    Args:
+        sender (Model): The model class. 
+        instance (Model instance): The actual instance being saved.
+
+    Returns:
+        None
+    """
     instance.profile.save()
 
