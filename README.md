@@ -10,6 +10,67 @@ The DeAngelo's Restaurant Booking System aims to bridge the gap between conventi
 
 ![Screenshot of logo & navigation](documentation/screenshot-of-responsivness.png)
 
+## Design and UX
+
+The application is designed to provide an intuitive and enjoyable user experience for both customers looking to book tables and browse the menu, and for restaurant staff managing bookings and menu items.
+
+### User Interface
+
+The UI is clean and minimalistic to allow for easy navigation and understanding. It has been designed with mobile-first approach, ensuring a smooth user experience on both desktop and mobile devices. The color scheme and typography were carefully chosen to give a sense of elegance and comfort, aligning with the high standards of our restaurant.
+
+### Accessibility
+
+We have ensured that the application is accessible to all users. It includes features such as keyboard navigation and screen reader compatibility. The color contrast has been checked to ensure it is legible for users with color vision deficiencies.
+
+### Responsiveness
+
+The application is fully responsive and is designed to provide an optimal viewing experience across a wide range of devices. Whether the user is accessing the application from a mobile device, tablet, or desktop, the interface adjusts to the screen size, ensuring a seamless user experience.
+
+### Wireframe
+
+Here is the initial wireframe for DeAngelo's
+
+- Home Page
+
+![Screenshot of wireframe home page](documentation/home-page-wireframe.png)
+
+- Menu Page
+
+![Screenshot of wireframe menu page](documentation/menu-page-wireframe.png)
+
+- Gallery Page
+
+![Screenshot of wireframe menu page](documentation/gallery-page-wireframe.png)
+
+### Database Model
+
+- Table: Represents a table in the restaurant with attributes table_number and seats.
+- Booking: Represents a booking made by a user. It has a foreign key relationship with User and a many-to-many relationship with Table through the TableBooking model.
+- TableBooking: An intermediate model for the many-to-many relationship between Booking and Table. It has foreign key relationships with both Booking and Table.
+- MenuItem: Represents a menu item in the restaurant with various attributes including name, description, price, category, and image.
+- Profile: Represents a user profile with a one-to-one relationship with User.
+
+![Screenshot of database](documentation/database-model.png)
+
+## User Stories
+
+For user stories I created a GitHub project called Booking-System-PP4. I followed closely the examples from the agile module of the course.
+
+### Users
+
+- As a user I can create an account so that I can make a booking [#1](https://github.com/PajoHack/Booking-System-PP4/issues/1)
+- As a user I can view the menu so that so that I can decide what I want to eat [#2](https://github.com/PajoHack/Booking-System-PP4/issues/2)
+- As a user I can make a booking so that I can reserve a table at the restaurant [#3](https://github.com/PajoHack/Booking-System-PP4/issues/3)
+- As a user I can select the number of guests for my booking so that the restaurant can prepare the necessary seating [#4](https://github.com/PajoHack/Booking-System-PP4/issues/4)
+- As a user I can cancel my booking so that I can free up the table for others if I cannot make it [#5](https://github.com/PajoHack/Booking-System-PP4/issues/5)
+- As a user I can edit my booking so that I can change the date, time, or number of guests if needed [#7](https://github.com/PajoHack/Booking-System-PP4/issues/7)
+
+### Admins
+
+- As an admin I can create an admin account so that I can manage my restaurant's bookings [#6](https://github.com/PajoHack/Booking-System-PP4/issues/6)
+- As an admin I can add, edit, and remove menu items so that I can keep the menu up-to-date [#8](https://github.com/PajoHack/Booking-System-PP4/issues/8)
+- As an admin I can be notified when a booking is made so that I can keep track of new reservations [#10](https://github.com/PajoHack/Booking-System-PP4/issues/10)
+
 ## Existing features 
 
 - Navigation Bar for customers 
@@ -150,10 +211,52 @@ The add, edit and delete bookings forms are almost identical to the table manage
 
 ## Features Left to Implement
 
+- Expand the admin home page.
+- Add detail views for the admin menu items.
+
 ## Testing
 
 - lighthouse
 - custom error handling pages
+
+### Error Handlers
+
+The application is equipped with custom error handlers for handling HTTP 403 (Forbidden), 404 (Not Found), 405 (Method Not Allowed), and 500 (Internal Server Error) status codes. These handlers serve a custom error page to the user whenever one of these HTTP errors occurs.
+
+Each handler is a function in a views file that accepts a request object (and exception object, in the case of 403 and 404 errors) and uses Django's render function to generate an HttpResponse with the appropriate error page and HTTP status code.
+
+Here's a brief overview of each handler:
+
+- handler403: This function handles HTTP 403 errors. It renders a 403.html template and returns an HttpResponse with a status code of 403.
+- handler404: This function handles HTTP 404 errors. It renders a 404.html template and returns an HttpResponse with a status code of 404.
+- handler405: This function handles HTTP 405 errors. It renders a 405.html template and returns an HttpResponse with a status code of 405.
+- handler500: This function handles HTTP 500 errors. It renders a 500.html template and returns an HttpResponse with a status code of 500.
+
+### Testing the Error Handlers
+
+To facilitate testing of these error handlers, I included some views that intentionally raise the corresponding HTTP errors. These views are error_403_view and error_500_view.
+
+Here's how they work:
+
+- error_403_view: When accessed, this view raises a PermissionDenied exception, which triggers a HTTP 403 error and causes our handler403 function to be invoked.
+- error_500_view: When accessed, this view raises a generic Exception, which triggers a HTTP 500 error and causes our handler500 function to be invoked.
+
+*These are the function that were used to test error handling.*
+
+![Screenshot of custom error handling](documentation/error-handling-functions.png)
+![Screenshot of custom error handling continued](documentation/error-handling-functions-continued.png)
+
+*Custom 404 page*
+
+![Screenshot of custom 404 page](documentation/404.png)
+
+*Custom 403 page*
+
+![Screenshot of custom 403 page](documentation/403.png)
+
+*Custom 500 page*
+
+![Screenshot of custom 500 page](documentation/500.png)
 
 ### Validator Testing
 
@@ -217,3 +320,32 @@ The entire process led to a smooth deployment on Heroku with an interactive and 
 - The home page template and css was taken from [Start Bootstrap](https://startbootstrap.com/template/full-width-pics)
 
 ## Media
+
+### Home Page Images
+
+- The image of the Italian Countryside on the top part of the screen was taken from [Unsplash](https://unsplash.com/photos/haO04L8LoaU).
+- The image of the restaurant in the bottom part of the screen was taken from [Unsplash](https://unsplash.com/photos/wfM1Fi-kMaY).
+
+### Menu Images
+
+- Garlic Bread [Freepik](https://www.freepik.com/free-photo/baked-cheese-camembert-with-rosemary-honey-tasty-food_6733581.htm).
+- Focaccia Mozzarella [IEatKeto](https://www.ieatketo.com/does-mozzarella-cheese-have-carbs/).
+- Minestrone Soup [Unsplash](https://unsplash.com/s/photos/minestrone-soup).
+- Mussels [Unsplash](https://unsplash.com/photos/DnBhidfyiH8).
+- Hazaiian Pizza [Unsplash](https://www.freepik.com/free-photo/hawaiian-pizza-with-pineappleham-cheese-isolated-white-background_24188452.htm#query=pineapple%20pizza&position=0&from_view=keyword&track=ais).
+- Vegetarian Pizza [Unsplash](https://unsplash.com/photos/jsZKLRi7toU).
+- Margherita Pizza [Good Food Ireland](https://goodfoodireland.ie/blog/pizza-in-ireland/).
+- Inferno Pizza [Feepik](https://www.freepik.com/free-photo/top-view-cheesy-tomato-pizza-with-olives-sausages-inside-pan-brown-desk-pizza-food-meal-fast-food-cheese-sausage_10543386.htm)
+- Lasagne [Feepik](https://www.freepik.com/free-photo/baked-lasagna-with-gourmet-italian-bolognese-sauce-generated-by-ai_40968080.htm#query=italy%20food&position=19&from_view=keyword&track=ais)
+- Penne Arrabiata [Freepik](https://www.freepik.com/free-photo/side-view-penne-pasta-with-tomato-sauce-salt-pepper-herbs-plate_8196771.htm).
+- Carbonara [Freepik](https://www.freepik.com/free-photo/top-view-cheesy-pasta-white-plate_10720733.htm#query=pasta%20carbonara&position=3&from_view=keyword&track=ais).
+- Ravioli [Unsplash](https://unsplash.com/photos/h7xulIktCg8).
+
+### Gallery Images
+
+- Chef [Unsplash](https://unsplash.com/photos/bjiD-5tAguc).
+- Interior of restaurant [Unsplash](https://unsplash.com/photos/wfM1Fi-kMaY).
+- Italian Country [Unsplash](https://unsplash.com/photos/haO04L8LoaU).
+- A table at DeAngelo's [freepik](https://www.freepik.com/free-photo/fettuccine-with-tomato-sauce-minced-meat-garnished-with-grated-parmesan_7570874.htm#query=italian%20restaurant&position=1&from_view=keyword&track=ais).
+- DeAngelo's Pizza [Freepik](https://www.freepik.com/free-photo/side-view-pizza-wooden-stand-with-tablecloth-hand-take-slice-pizza_7703842.htm)
+- Selection of ingrediants used in house [Medium](https://vsfranklin.medium.com/use-your-refrigerator-like-an-endless-mise-en-place-d81216eeed50)

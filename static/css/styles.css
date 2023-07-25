@@ -10847,6 +10847,14 @@ textarea.form-control-lg {
   box-shadow: none;
 }
 
+/*  */
+
+.italian-restaurant {
+  background-color: #000;
+  padding: .5rem;
+  border-radius: 1rem;
+}
+
 /* footer */
 
 footer .social-media {

@@ -15,7 +15,6 @@ from django.db.models import Q
 from datetime import timedelta, datetime
 
 
-
 def index(request):
     """
     View to display the homepage.
@@ -272,28 +271,93 @@ def check_availability(request):
 
 
 def gallery_view(request):
+    """
+    The gallery view which renders the 'gallery.html' template.
+
+    Args:
+        request (HttpRequest): The request instance.
+
+    Returns:
+        HttpResponse: The response instance that renders the 'gallery.html' template.
+    """
     return render(request, 'bookings/gallery.html')
 
 
 def handler500(request, *args, **argv):
+    """
+    The 500 error handler which renders the '500.html' template.
+
+    Args:
+        request (HttpRequest): The request instance.
+
+    Returns:
+        HttpResponse: The response instance that renders the '500.html' template with status code 500.
+    """
     return render(request, '500.html', status=500)
 
 
 def handler403(request, exception, *args, **argv):
+    """
+    The 403 error handler which renders the '403.html' template.
+
+    Args:
+        request (HttpRequest): The request instance.
+        exception (Exception): The exception instance that triggered this handler.
+
+    Returns:
+        HttpResponse: The response instance that renders the '403.html' template with status code 403.
+    """
     return render(request, '403.html', status=403)
 
 
 def handler404(request, exception, *args, **argv):
+    """
+    The 404 error handler which renders the '404.html' template.
+
+    Args:
+        request (HttpRequest): The request instance.
+        exception (Exception): The exception instance that triggered this handler.
+
+    Returns:
+        HttpResponse: The response instance that renders the '404.html' template with status code 404.
+    """
     return render(request, '404.html', status=404)
 
 
 def handler405(request, *args, **argv):
+    """
+    The 405 error handler which renders the '405.html' template.
+
+    Args:
+        request (HttpRequest): The request instance.
+
+    Returns:
+        HttpResponse: The response instance that renders the '405.html' template with status code 405.
+    """
     return render(request, '405.html', status=405)
 
 
 def error_500_view(request):
+    """
+    View function to manually trigger a 500 error for testing purposes.
+
+    Args:
+        request (HttpRequest): The request instance.
+
+    Raises:
+        Exception: Always raises an exception to trigger the 500 error.
+    """
     raise Exception('This is a test exception')
 
 
 def error_403_view(request):
+    """
+    View function to manually trigger a 403 error for testing purposes.
+
+    Args:
+        request (HttpRequest): The request instance.
+
+    Raises:
+        PermissionDenied: Always raises a PermissionDenied exception to trigger the 403 error.
+    """
     raise PermissionDenied
