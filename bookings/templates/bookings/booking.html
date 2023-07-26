@@ -16,22 +16,26 @@ Reservation
         <fieldset>
             <legend class="menu-title">Booking Form</legend>
             {% for field in form %}
-                <div class="form-group">
+            <div class="form-group">
+                {% if field.name != "tables" %}  <!-- Added conditional check here -->
                     <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                    {% if field.name != "tables" %}
-                        {{ field|add_class:"form-control" }}
-                    {% else %}
-                        {{ field }}
-                    {% endif %}
-                    {% if field.help_text %}
-                        <small class="form-text text-muted">{{ field.help_text }}</small>
-                    {% endif %}
-                    {% if field.errors %}
-                        <div class="alert alert-danger">
-                            {{ field.errors }}
-                        </div>
-                    {% endif %}
-                </div>
+                {% else %}
+                    <label>{{ field.label }}</label>  <!-- If field.name is "tables", render label without the 'for' attribute -->
+                {% endif %}
+                {% if field.name != "tables" %}
+                    {{ field|add_class:"form-control" }}
+                {% else %}
+                    {{ field }}
+                {% endif %}
+                {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+                {% if field.errors %}
+                    <div class="alert alert-danger">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            </div>
             {% endfor %}
         </fieldset>
         <p id="message"></p>

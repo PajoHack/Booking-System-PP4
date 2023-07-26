@@ -1,5 +1,7 @@
 // Wrap everything in jQuery's $(function () {}) to wait for the document to be ready
-$(function () {
+// $(function () {
+document.addEventListener('DOMContentLoaded', (event) => {
+    
     // Initialize timepicker with the specific format and restrictions
     $('#datetimepicker').timepicker({
         'timeFormat': 'h:mm p',
@@ -81,8 +83,7 @@ $(function () {
     }
     dateInput.addEventListener('input', checkAvailability);
     timeInput.addEventListener('input', checkAvailability);
-
-    // Call checkAvailability every 3 seconds to keep checking the table availability in real-time
-    setInterval(checkAvailability, 3000);
+   
+    setInterval(checkAvailability, 5000);
 });
 

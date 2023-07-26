@@ -40,7 +40,11 @@ Here is the initial wireframe for DeAngelo's
 
 - Gallery Page
 
-![Screenshot of wireframe menu page](documentation/gallery-page-wireframe.png)
+![Screenshot of wireframe gallery page](documentation/gallery-page-wireframe.png)
+
+- Profile Page
+
+![Screenshot of wireframe profile page](documentation/profile-page-wireframe.png)
 
 ### Database Model
 
@@ -217,7 +221,7 @@ The add, edit and delete bookings forms are almost identical to the table manage
 ## Testing
 
 - lighthouse
-- custom error handling pages
+- HTML. I ran the source code for all pages that render HTML in both the front facing website and the admin app. After fixing some typos and removing extra closing tags I received "Document checking completed. No errors or warnings to show." for all pages.
 
 ### Error Handlers
 
@@ -258,6 +262,17 @@ Here's how they work:
 
 ![Screenshot of custom 500 page](documentation/500.png)
 
+### User Stories Testing
+
+The user stories for this project were tested to ensure that all functionalities are working as expected. Each user story was treated as a separate feature and tested individually. The testing process was carried out in the following manner:
+
+- Account Creation: The ability for users and admins to create accounts was tested. New accounts were created with various data sets to ensure that the account creation process is robust and error-free. The successful creation of new accounts confirmed the successful implementation of this feature.
+- Menu Viewing: The functionality for users to view the menu was tested. Different users were used to access the menu page and the correct display of menu items was confirmed.
+- Booking Creation, Editing, and Cancellation: The booking system was tested extensively. Bookings were created, edited, and cancelled multiple times to ensure the system can handle these operations smoothly. The ability to select the number of guests during booking was also tested and confirmed.
+- Admin Functions: The admin functionalities were tested by creating an admin account and using it to add, edit, and remove menu items. The changes were confirmed on the user side to ensure they were correctly implemented. The notification system for new bookings was also tested and confirmed to be working as expected.
+
+All tests were successful, indicating that the user stories were correctly implemented. However, it's important to note that testing is an ongoing process. As new features are added or existing ones are modified, further testing will be conducted to ensure the continued functionality and reliability of the system.
+
 ### Validator Testing
 
 - html
@@ -265,7 +280,11 @@ Here's how they work:
 
 ### Unfixed Bugs
 
-- Yahoo emails
+One of the known issues that we're currently facing involves the interaction between Mailjet and Yahoo Mail. Yahoo Mail has been rejecting emails sent via Mailjet because the sending email address does not originate from a domain address. This is due to Yahoo Mail's stringent DMARC (Domain-based Message Authentication, Reporting & Conformance) policy. 
+
+When Mailjet attempts to send an email using a Yahoo email address, Yahoo's servers recognize that the email did not originate from their own servers and reject it. This is a security measure to protect Yahoo Mail users from potentially harmful emails. 
+
+If testing out the email notifications please either use a domain address, or gmail also works but the email may be sent to your spam folder.
 
 ## Deployment
 
@@ -315,6 +334,25 @@ This section walks you through the process of deploying this project to a produc
 
 The entire process led to a smooth deployment on Heroku with an interactive and user-friendly restaurant booking application ready for public access.
 
+### Cloning 
+
+- Find the Repository: Navigate to the main page of the repository on GitHub.
+- Copy the Repository URL: Click on the green "Code" button on the right side of the repository page. This will open a dropdown menu. Make sure "HTTPS" is selected and then click the clipboard icon to copy the repository URL.
+- Open Terminal or Command Prompt: On your local machine, open your terminal (Mac/Linux) or command prompt (Windows).
+- Navigate to Desired Directory: Use the cd command to navigate to the directory where you want to clone the repository.
+- Clone the Repository: Type git clone, paste the URL you copied earlier, and press Enter. The command should look like this: git clone https://github.com/username/repository.git
+- Access the Repository: Once the repository has been cloned, navigate into the new directory (which will have the same name as the repository) by using the cd command again: cd repository-name
+- Check the Repository: You can use the ls command (or dir on Windows) to list the files in the directory and confirm that you've successfully cloned the repository.
+
+### Forking
+
+- Find the Repository: Navigate to the main page of the repository on GitHub that you want to fork.
+- ork the Repository: Click on the "Fork" button at the top right corner of the repository page. This will create a copy of the repository under your GitHub account.
+- Navigate to Your Forked Repository: Once the forking process is complete, you'll be redirected to the main page of your new forked repository. You can also access it later by going to your GitHub profile and clicking on the repository name under "Your repositories".
+- Clone the Forked Repository: If you want to work on the project locally, you can clone the forked repository to your machine. Click on the green "Code" button on the right side of the repository page, copy the URL, and then use the git clone command in your terminal or command prompt: git clone https://github.com/your-username/repository.git
+- Access the Repository: Once the repository has been cloned, navigate into the new directory (which will have the same name as the repository) by using the cd command: cd repository-name
+- Check the Repository: You can use the ls command (or dir on Windows) to list the files in the directory and confirm that you've successfully cloned the repository.
+
 ## Credits
 
 - The home page template and css was taken from [Start Bootstrap](https://startbootstrap.com/template/full-width-pics)
@@ -349,3 +387,7 @@ The entire process led to a smooth deployment on Heroku with an interactive and 
 - A table at DeAngelo's [freepik](https://www.freepik.com/free-photo/fettuccine-with-tomato-sauce-minced-meat-garnished-with-grated-parmesan_7570874.htm#query=italian%20restaurant&position=1&from_view=keyword&track=ais).
 - DeAngelo's Pizza [Freepik](https://www.freepik.com/free-photo/side-view-pizza-wooden-stand-with-tablecloth-hand-take-slice-pizza_7703842.htm)
 - Selection of ingrediants used in house [Medium](https://vsfranklin.medium.com/use-your-refrigerator-like-an-endless-mise-en-place-d81216eeed50)
+
+## Development 
+
+In the development process of this project, I have utilized two additional GitHub repositories for practice and experimentation. The first repository, named 'restaurant-booking-PP4', served as a playground for testing various features and functionalities related to restaurant booking systems. This allowed me to refine my skills and gain a deeper understanding of the complexities involved in such systems. The second repository, 'admin-template', was used to experiment with different admin panel layouts and functionalities. It provided me with the opportunity to explore various design patterns and user interface elements commonly used in admin panels. Both of these repositories have played a crucial role in shaping the development of the main project.
