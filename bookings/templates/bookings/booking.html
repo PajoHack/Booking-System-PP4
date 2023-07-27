@@ -15,6 +15,13 @@ Reservation
         {% csrf_token %}
         <fieldset>
             <legend class="menu-title">Booking Form</legend>
+            <p>Booking ID: {{ booking.id }}</p>
+            {% if edit_mode %}
+                <input type="hidden" id="editMode" value="{{ booking.id }}">
+            {% else %}
+                <input type="hidden" id="editMode" value="0">
+            {% endif %}
+
             {% for field in form %}
             <div class="form-group">
                 {% if field.name != "tables" %}  <!-- Added conditional check here -->

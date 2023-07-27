@@ -10,17 +10,19 @@ The DeAngelo's Restaurant Booking System aims to bridge the gap between conventi
 
 ![Screenshot of logo & navigation](documentation/screenshot-of-responsivness.png)
 
+The live project can be found [here](https://booking-system-pp4-45edec966ba7.herokuapp.com/)
+
 ## Design and UX
 
 The application is designed to provide an intuitive and enjoyable user experience for both customers looking to book tables and browse the menu, and for restaurant staff managing bookings and menu items.
 
 ### User Interface
 
-The UI is clean and minimalistic to allow for easy navigation and understanding. It has been designed with mobile-first approach, ensuring a smooth user experience on both desktop and mobile devices. The color scheme and typography were carefully chosen to give a sense of elegance and comfort, aligning with the high standards of our restaurant.
+The UI is clean and minimalistic to allow for easy navigation and understanding. It has been designed with mobile-first approach, ensuring a smooth user experience on both desktop and mobile devices. The color scheme and typography were carefully chosen to give a sense of elegance and comfort.
 
 ### Accessibility
 
-We have ensured that the application is accessible to all users. It includes features such as keyboard navigation and screen reader compatibility. The color contrast has been checked to ensure it is legible for users with color vision deficiencies.
+We have ensured that the application is accessible to all users. It includes features such as keyboard navigation and screen reader compatibility. The color contrast has been checked to ensure it is legible.
 
 ### Responsiveness
 
@@ -220,17 +222,12 @@ The add, edit and delete bookings forms are almost identical to the table manage
 
 ## Testing
 
+### Lighthouse
+
 - The Lighthouse report was executed to evaluate the performance score of the application.
 
 ![Screenshot lighthouse report](documentation/lighthouse-report.png)
 
-- HTML. I ran the source code for all pages rendering HTML, for both the user-facing website and the admin application. After rectifying some typographical errors and eliminating extra closing tags, I received the message "Document checking completed. No errors or warnings to show." for all pages. The validation process was conducted using https://validator.w3.org/
-
-![Screenshot of html validation](documentation/w3c-html-validation.png)
-
-- CSS. I validated the CSS files using https://jigsaw.w3.org/css-validator/, and it returned no errors
-
-![Screenshot of css validation](documentation/w3c-css-validation.png)
 
 ### Error Handlers
 
@@ -284,8 +281,13 @@ All tests were successful, indicating that the user stories were correctly imple
 
 ### Validator Testing
 
-- html
-- css
+- HTML. I ran the source code for all pages rendering HTML, for both the user-facing website and the admin application. After rectifying some typographical errors and eliminating extra closing tags, I received the message "Document checking completed. No errors or warnings to show." for all pages. The validation process was conducted using [W3C](https://validator.w3.org/)
+
+![Screenshot of html validation](documentation/w3c-html-validation.png)
+
+- CSS. I validated the CSS files using [Jigsaw](https://jigsaw.w3.org/css-validator/), and it returned no errors
+
+![Screenshot of css validation](documentation/w3c-css-validation.png)
 
 ### Unfixed Bugs
 
@@ -349,7 +351,7 @@ The entire process led to a smooth deployment on Heroku with an interactive and 
 - Copy the Repository URL: Click on the green "Code" button on the right side of the repository page. This will open a dropdown menu. Make sure "HTTPS" is selected and then click the clipboard icon to copy the repository URL.
 - Open Terminal or Command Prompt: On your local machine, open your terminal (Mac/Linux) or command prompt (Windows).
 - Navigate to Desired Directory: Use the cd command to navigate to the directory where you want to clone the repository.
-- Clone the Repository: Type git clone, paste the URL you copied earlier, and press Enter. The command should look like this: git clone https://github.com/username/repository.git
+- Clone the Repository: Type git clone, paste the URL you copied earlier, and press Enter. The command should look like this: git clone https://github.com/PajoHack/Booking-System-PP4.git
 - Access the Repository: Once the repository has been cloned, navigate into the new directory (which will have the same name as the repository) by using the cd command again: cd repository-name
 - Check the Repository: You can use the ls command (or dir on Windows) to list the files in the directory and confirm that you've successfully cloned the repository.
 
@@ -358,19 +360,27 @@ The entire process led to a smooth deployment on Heroku with an interactive and 
 - Find the Repository: Navigate to the main page of the repository on GitHub that you want to fork.
 - ork the Repository: Click on the "Fork" button at the top right corner of the repository page. This will create a copy of the repository under your GitHub account.
 - Navigate to Your Forked Repository: Once the forking process is complete, you'll be redirected to the main page of your new forked repository. You can also access it later by going to your GitHub profile and clicking on the repository name under "Your repositories".
-- Clone the Forked Repository: If you want to work on the project locally, you can clone the forked repository to your machine. Click on the green "Code" button on the right side of the repository page, copy the URL, and then use the git clone command in your terminal or command prompt: git clone https://github.com/your-username/repository.git
+- Clone the Forked Repository: If you want to work on the project locally, you can clone the forked repository to your machine. Click on the green "Code" button on the right side of the repository page, copy the URL, and then use the git clone command in your terminal or command prompt: git clone https://github.com/PajoHack/Booking-System-PP4.git
 - Access the Repository: Once the repository has been cloned, navigate into the new directory (which will have the same name as the repository) by using the cd command: cd repository-name
 - Check the Repository: You can use the ls command (or dir on Windows) to list the files in the directory and confirm that you've successfully cloned the repository.
 
 ## Credits
 
-- The home page template and css was taken from [Start Bootstrap](https://startbootstrap.com/template/full-width-pics)
+- [Start Bootstrap](https://startbootstrap.com/template/full-width-pics) The home page template and css was taken from here.
+- [Lightbox](https://lokeshdhakar.com/projects/lightbox2/) The Lightbox 2 JavaScript library was incorporated into the gallery feature to enhance the user experience. 
+- [Bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/introduction/) was used to improve responsivness.
+- [Fontawesome](https://fontawesome.com/) was used for icons.
+- [Cloudinary](https://cloudinary.com/) was used for storage of the images used in the project.
+- [jQuery Timepicker](https://timepicker.co/) was used to format the date field correctly on the booking form.
+- [Heroku](https://www.heroku.com/) was used to deplo the finshed project.
+- [Mailjet](https://www.mailjet.com/) was used for email template and to send email notifications.
+- [Balsamiq](https://balsamiq.com/) was used to create the wireframe.
 
 ## Media
 
 ### Home Page Images
 
-- The image of the Italian Countryside on the top part of the screen was taken from [Unsplash](https://unsplash.com/photos/haO04L8LoaU).
+- The image of the Italian food on the top part of the screen was taken from [Freepik](https://www.freepik.com/free-photo/top-view-table-full-delicious-food-assortment_19672823.htm#query=arieal%20view%20of%20italian%20food%20on%20table&position=1&from_view=search&track=ais).
 - The image of the restaurant in the bottom part of the screen was taken from [Unsplash](https://unsplash.com/photos/wfM1Fi-kMaY).
 
 ### Menu Images

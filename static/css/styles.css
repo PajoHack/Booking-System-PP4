@@ -10854,6 +10854,7 @@ textarea.form-control-lg {
   font-style: italic;
   font-weight: 400;
   padding: .5rem;
+  border: 5px solid #000;
   border-radius: 1rem;
 }
 

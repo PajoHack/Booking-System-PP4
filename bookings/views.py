@@ -175,6 +175,7 @@ def edit_booking_view(request, pk):
     """
 
     booking = get_object_or_404(Booking, id=pk, user=request.user)
+    print(booking)
 
     if request.method == 'POST':
         form = BookingForm(request.POST, instance=booking)
@@ -191,8 +192,15 @@ def edit_booking_view(request, pk):
             return redirect('profile')
     else:
         form = BookingForm(instance=booking)
+        
+    context = {
+        'form': form,
+        'edit_mode': True,
+        'booking': booking,
+    }
 
-    return render(request, 'bookings/booking.html', {'form': form, 'edit_mode': True})
+    # return render(request, 'bookings/booking.html', {'form': form, 'edit_mode': True})
+    return render(request, 'bookings/booking.html', context)
 
 
 @login_required
@@ -236,6 +244,7 @@ def check_availability(request):
         table_id = request.GET.get('table_id', None)
         date_str = request.GET.get('date', None)
         time_str = request.GET.get('time', None)
+        booking_id = request.GET.get('booking_id', None)
 
         # print(f"table_id: {table_id}, date: {date_str}, time: {time_str}")
 
@@ -250,6 +259,7 @@ def check_availability(request):
         table_bookings = TableBooking.objects.filter(table=table, booking__date=date)
 
         overlap_exists = False
+        booked_by_current_user = False
         for table_booking in table_bookings:
             booking_start = datetime.combine(date, table_booking.booking.time)
             booking_end = booking_start + timedelta(hours=1, minutes=30)
@@ -259,10 +269,16 @@ def check_availability(request):
 
             if (booking_start <= requested_end) and (requested_start <= booking_end):
                 overlap_exists = True
+                # Check if the booking is made by the current user
+                if booking_id and str(table_booking.booking.id) == booking_id:
+                    booked_by_current_user = True
+                # Print the values for debugging
+                print(f"booking_id: {booking_id}, table_booking.booking.id: {table_booking.booking.id}, booked_by_current_user: {booked_by_current_user}")
                 break
 
         if overlap_exists:
-            return JsonResponse({'available': False})
+            # return JsonResponse({'available': False})
+             return JsonResponse({'available': False, 'booked_by_current_user': booked_by_current_user})
         else:
             return JsonResponse({'available': True})
     else:
