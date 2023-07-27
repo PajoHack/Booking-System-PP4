@@ -10833,7 +10833,6 @@ textarea.form-control-lg {
   background-size: cover;
 }
 
-
 /* custom css */
 
 /* navbar  */
@@ -10847,10 +10846,13 @@ textarea.form-control-lg {
   box-shadow: none;
 }
 
-/*  */
+/* writing under the logo */
 
 .italian-restaurant {
-  background-color: #000;
+  background-color: #fff;
+  color: #000;
+  font-style: italic;
+  font-weight: 400;
   padding: .5rem;
   border-radius: 1rem;
 }
@@ -10916,4 +10918,21 @@ footer .social-media a {
 
 .background-text {
   background-color: #000;
+}
+
+/* styles for logo image */
+
+.image-cropper {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.image-cropper img {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
 }

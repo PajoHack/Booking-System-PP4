@@ -19,23 +19,27 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const form = document.querySelector('#res-form');
 
     // Event listener to format time on form submission
-    form.addEventListener('submit', function (e) {
-        const timeParts = timeInput.value.split(" ");
-        let [hours, minutes] = timeParts[0].split(":");
-        if (timeParts[1].toLowerCase() === "pm" && hours != "12") {
-            hours = parseInt(hours, 10) + 12;
-        } else if (timeParts[1].toLowerCase() === "am" && hours == "12") {
-            hours = "00";
-        }
-        const time = `${hours}:${minutes}:00`;
+    if (form) {
+        form.addEventListener('submit', function (e) {
+            const timeParts = timeInput.value.split(" ");
+            let [hours, minutes] = timeParts[0].split(":");
+            if (timeParts[1].toLowerCase() === "pm" && hours != "12") {
+                hours = parseInt(hours, 10) + 12;
+            } else if (timeParts[1].toLowerCase() === "am" && hours == "12") {
+                hours = "00";
+            }
+            const time = `${hours}:${minutes}:00`;
 
-        timeInput.value = time; // set the time input to the new formatted time.
-    });
+            timeInput.value = time; // set the time input to the new formatted time.
+        });
+    }   
 
     // Function to check the availability of selected tables
     function checkAvailability() {
+        if (message) {
         message.textContent = '';
         submitButton.disabled = false;
+        }
 
         let checks = [];
         // Add event listeners to trigger the checkAvailability function
@@ -69,21 +73,45 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
         }
 
+        // Promise.all(checks).then(results => {
+        //     if (results.every(val => val === true) && results.length > 0) {
+        //         message.textContent = "All selected tables are available!";
+        //     } else {
+        //         submitButton.disabled = true;
+        //     }
+        // });
         Promise.all(checks).then(results => {
             if (results.every(val => val === true) && results.length > 0) {
-                message.textContent = "All selected tables are available!";
+                if (message) {
+                    message.textContent = "All selected tables are available!";
+                }
             } else {
-                submitButton.disabled = true;
+                if (submitButton) {
+                    submitButton.disabled = true;
+                }
             }
-        });
+        });        
     }
 
     for (let i = 0; i < tableCheckboxes.length; i++) {
         tableCheckboxes[i].addEventListener('change', checkAvailability);
     }
-    dateInput.addEventListener('input', checkAvailability);
-    timeInput.addEventListener('input', checkAvailability);
+    // dateInput.addEventListener('input', checkAvailability);
+    // timeInput.addEventListener('input', checkAvailability);
+    if (dateInput) {
+        dateInput.addEventListener('input', checkAvailability);
+    }
+    if (timeInput) {
+        timeInput.addEventListener('input', checkAvailability);
+    }
    
     setInterval(checkAvailability, 5000);
+
+    // console.log('dateInput:', dateInput);
+    // console.log('timeInput:', timeInput);
+    // console.log('message:', message);
+    // console.log('submitButton:', submitButton);
+    // console.log('tableCheckboxes:', tableCheckboxes);
+    // console.log('form:', form);
 });
 

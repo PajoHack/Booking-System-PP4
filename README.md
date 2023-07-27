@@ -220,8 +220,17 @@ The add, edit and delete bookings forms are almost identical to the table manage
 
 ## Testing
 
-- lighthouse
-- HTML. I ran the source code for all pages that render HTML in both the front facing website and the admin app. After fixing some typos and removing extra closing tags I received "Document checking completed. No errors or warnings to show." for all pages.
+- The Lighthouse report was executed to evaluate the performance score of the application.
+
+![Screenshot lighthouse report](documentation/lighthouse-report.png)
+
+- HTML. I ran the source code for all pages rendering HTML, for both the user-facing website and the admin application. After rectifying some typographical errors and eliminating extra closing tags, I received the message "Document checking completed. No errors or warnings to show." for all pages. The validation process was conducted using https://validator.w3.org/
+
+![Screenshot of html validation](documentation/w3c-html-validation.png)
+
+- CSS. I validated the CSS files using https://jigsaw.w3.org/css-validator/, and it returned no errors
+
+![Screenshot of css validation](documentation/w3c-css-validation.png)
 
 ### Error Handlers
 
