@@ -113,19 +113,19 @@ the site footer is displayed on all front facing pages. It contains the copyrigh
 
 ### Menu Page
 
-The menu page contains vibrant imagery of our delectable dishes. Accompanied by both detailed descriptions and transparent pricing, it offers an enticing preview of the culinary delights that await our guests.
+The menu page contains vibrant imagery of our delectable dishes. Accompanied by both detailed descriptions and pricing, it offers an enticing preview of the delights that await our guests.
 
 ![Screenshot of the footer](documentation/menu.png)
 
 ### Gallery Page
 
-The gallery page showcases an array of captivating images which we feel captures the essence of our restaurant. To elevate user experience, a simple click on an image triggers a seamless on-page enlargement, offering an up-close view of the image. Additionally, users can effortlessly navigate through these magnified images - right and left - without the need to close each picture first, thereby ensuring a smooth, uninterrupted exploration."
+The gallery page showcases an array of captivating images which we feel captures the essence of our restaurant. To improve user experience, a simple click on an image triggers a seamless on-page enlargement, offering an up-close view of the image. Additionally, users can effortlessly navigate through these magnified images - right and left - without the need to close each picture first, ensuring a smooth, uninterrupted viewing."
 
 ![Screenshot of the footer](documentation/gallery.png)
 
 ### Reservation Page
 
-The reservation page, accessible only to registered users, elegantly presents a booking form with an accompanying guide on how to fill it out. As the user inputs their details, a script diligently checks the availability of the requested tables. The form incorporates an intelligent validation system, eliminating the possibility of selecting past dates and ensuring that the number of guests does not surpass the capacity of the chosen tables. Furthermore, each table becomes available for new reservations two hours after the start of the previous booking. Only when all these checks are satisfied does the form's submission button become enabled, ensuring a smooth and error-free reservation experience.
+The reservation page, accessible only to registered users, presents a booking form with an accompanying guide on how to fill it out. As the user inputs their details, a script diligently checks the availability of the requested tables. The form incorporates an intelligent validation system, eliminating the possibility of selecting past dates and ensuring that the number of guests does not surpass the capacity of the chosen tables. Furthermore, each table becomes available for new reservations two hours after the start of the previous booking. Only when all these checks are satisfied does the form's submission button become enabled, ensuring a smooth and error-free reservation experience.
 
 ![Screenshot of the booking form](documentation/booking-form.png)
 
@@ -147,7 +147,7 @@ Upon making a successful reservation, an automated confirmation email is dispatc
 
 ### Profile Page
 
-The profile page neatly catalogues all the bookings made by a user, affording them the convenience of managing their reservations. Users have the capability to edit or delete their upcoming bookings, ensuring flexibility. However, any bookings from the past remain uneditable and undeletable.
+The profile page neatly displays all the bookings made by a user, affording them the convenience of managing their reservations. Users have the capability to edit or delete their upcoming bookings, ensuring flexibility. However, any bookings from the past remain uneditable and undeletable.
 
 ![Screenshot of the profile page](documentation/profile-page.png)
 
@@ -217,8 +217,9 @@ The add, edit and delete bookings forms are almost identical to the table manage
 
 ## Features Left to Implement
 
-- Expand the admin home page.
-- Add detail views for the admin menu items.
+- I would consider enhancing the admin home page by incorporating additional metrics in the future for a more comprehensive understanding of site data.
+- I would also consider implementing detailed views for each admin menu item to offer more in-depth information.
+- Similarly, it would be beneficial to incorporate detailed views for each menu item on the regular customer's menu page, providing more comprehensive information for each selection.
 
 ## Testing
 
@@ -250,11 +251,11 @@ Here's how they work:
 
 - error_403_view: When accessed, this view raises a PermissionDenied exception, which triggers a HTTP 403 error and causes our handler403 function to be invoked.
 - error_500_view: When accessed, this view raises a generic Exception, which triggers a HTTP 500 error and causes our handler500 function to be invoked.
+- These were the urls used in testing. `path('500/', error_500_view, name='500_error'), path('403/', error_403_view, name='403_error'),`
 
-*These are the function that were used to test error handling.*
+*These are the functions that were used to test error handling.*
 
-![Screenshot of custom error handling](documentation/error-handling-functions.png)
-![Screenshot of custom error handling continued](documentation/error-handling-functions-continued.png)
+![Screenshot of custom error handling tests](documentation/error-handling-tests.png)
 
 *Custom 404 page*
 
@@ -281,17 +282,47 @@ All tests were successful, indicating that the user stories were correctly imple
 
 ### Validator Testing
 
-- HTML. I ran the source code for all pages rendering HTML, for both the user-facing website and the admin application. After rectifying some typographical errors and eliminating extra closing tags, I received the message "Document checking completed. No errors or warnings to show." for all pages. The validation process was conducted using [W3C](https://validator.w3.org/)
+- HTML: I ran the source code for all pages rendering HTML, for both the user-facing website and the admin application. After rectifying some typographical errors and eliminating extra closing tags, I received the message "Document checking completed. No errors or warnings to show." for all pages. The validation process was conducted using [W3C](https://validator.w3.org/)
 
 ![Screenshot of html validation](documentation/w3c-html-validation.png)
 
-- CSS. I validated the CSS files using [Jigsaw](https://jigsaw.w3.org/css-validator/), and it returned no errors
+- CSS: I validated the CSS files using [Jigsaw](https://jigsaw.w3.org/css-validator/), and it returned no errors
 
 ![Screenshot of css validation](documentation/w3c-css-validation.png)
 
-### Unfixed Bugs
+## Debugging
 
-One of the known issues that we're currently facing involves the interaction between Mailjet and Yahoo Mail. Yahoo Mail has been rejecting emails sent via Mailjet because the sending email address does not originate from a domain address. This is due to Yahoo Mail's stringent DMARC (Domain-based Message Authentication, Reporting & Conformance) policy. 
+During the development of the table booking system, one of the challenges faced was ensuring accurate availability checks for table reservations. The system needed to account for not only the availability of tables at specific times but also whether a user was editing their existing booking.
+
+### Problem 1: Table Availability Check
+
+The initial implementation of the table availability check did not account for the scenario where a user was editing their existing booking. This led to a situation where a user could not re-select their already booked table during the editing process, as the system considered it as "unavailable".
+
+### Solution:
+
+To solve this, I introduced a hidden field in the booking form that stored the booking ID when the form was in edit mode. This ID was then sent as a parameter during the availability check.
+
+In the availability check view (check_availability), I added a condition to check if the overlapping booking belonged to the current user. If it did, the system would consider the table as available for that user.
+
+### Problem 2: Feedback Message
+
+The feedback message displayed to the user during the table availability check was not accurate when the user was editing their booking. It would display "Table not available" even when the user had already booked the table.
+
+### Solution:
+
+I updated the feedback message logic in the JavaScript code that handled the availability check response. If the form was in edit mode and the table was booked by the current user, the feedback message would display "You have already booked this table" instead of "Table not available".
+
+### Problem 3: Booking ID not available in the form
+
+Despite adding a hidden field for the booking ID in the form, the ID was not being rendered in the HTML. This was because the booking instance was not being passed to the template when the form was in edit mode.
+
+### Solution:
+
+I updated the view that handled the booking form to include the booking instance in the context when the form was in edit mode. This allowed the booking ID to be rendered in the hidden field in the form.
+
+## Unfixed Bugs
+
+One of the known issues that I'm currently facing involves the interaction between Mailjet and Yahoo Mail. Yahoo Mail has been rejecting emails sent via Mailjet because the sending email address does not originate from a domain address. This is due to Yahoo Mail's stringent DMARC (Domain-based Message Authentication, Reporting & Conformance) policy. 
 
 When Mailjet attempts to send an email using a Yahoo email address, Yahoo's servers recognize that the email did not originate from their own servers and reject it. This is a security measure to protect Yahoo Mail users from potentially harmful emails. 
 
@@ -315,7 +346,7 @@ This section walks you through the process of deploying this project to a produc
 
 - A Django app named 'bookings' was created using `python3 manage.py startapp bookings` and added to the 'INSTALLED_APPS' list in the project settings.
 
-- Django widget tweaks were installed for form field customization using `pip install django-widget-tweaks`. This addition required a updated requirements.txt file.
+- Django widget tweaks were installed for form field customization using `pip install django-widget-tweaks`. This addition required an updated requirements.txt file.
 
 - Django migrations were applied to incorporate the new app and changes to the database schema with `python3 manage.py migrate`.
 
@@ -375,6 +406,7 @@ The entire process led to a smooth deployment on Heroku with an interactive and 
 - [Heroku](https://www.heroku.com/) was used to deplo the finshed project.
 - [Mailjet](https://www.mailjet.com/) was used for email template and to send email notifications.
 - [Balsamiq](https://balsamiq.com/) was used to create the wireframe.
+- [Brand Crowd](https://www.brandcrowd.com/) was used to create the DeAngelo's logo.
 
 ## Media
 
@@ -409,4 +441,10 @@ The entire process led to a smooth deployment on Heroku with an interactive and 
 
 ## Development 
 
-In the development process of this project, I have utilized two additional GitHub repositories for practice and experimentation. The first repository, named 'restaurant-booking-PP4', served as a playground for testing various features and functionalities related to restaurant booking systems. This allowed me to refine my skills and gain a deeper understanding of the complexities involved in such systems. The second repository, 'admin-template', was used to experiment with different admin panel layouts and functionalities. It provided me with the opportunity to explore various design patterns and user interface elements commonly used in admin panels. Both of these repositories have played a crucial role in shaping the development of the main project.
+In the development process of this project, I have utilized additional two of my own GitHub repositories for practice and experimentation. The first repository, named 'restaurant-booking-PP4', served as a playground for testing various features and functionalities related to restaurant booking systems. This allowed me to refine my skills and gain a deeper understanding of the complexities involved in such systems. 
+
+The second repository, 'admin-template', was used to experiment with different admin panel layouts and functionalities. It provided me with the opportunity to explore various design patterns and user interface elements commonly used in admin panels. Both of these repositories have played a crucial role in shaping the development of the main project.
+
+## Acknowledgements
+
+I extend my heartfelt gratitude to my mentor, Brian Macharia, for his invaluable assistance during this project and throughout the entire course.

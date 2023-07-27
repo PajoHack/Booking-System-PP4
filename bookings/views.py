@@ -175,7 +175,6 @@ def edit_booking_view(request, pk):
     """
 
     booking = get_object_or_404(Booking, id=pk, user=request.user)
-    print(booking)
 
     if request.method == 'POST':
         form = BookingForm(request.POST, instance=booking)
@@ -351,29 +350,3 @@ def handler405(request, *args, **argv):
         HttpResponse: The response instance that renders the '405.html' template with status code 405.
     """
     return render(request, '405.html', status=405)
-
-
-def error_500_view(request):
-    """
-    View function to manually trigger a 500 error for testing purposes.
-
-    Args:
-        request (HttpRequest): The request instance.
-
-    Raises:
-        Exception: Always raises an exception to trigger the 500 error.
-    """
-    raise Exception('This is a test exception')
-
-
-def error_403_view(request):
-    """
-    View function to manually trigger a 403 error for testing purposes.
-
-    Args:
-        request (HttpRequest): The request instance.
-
-    Raises:
-        PermissionDenied: Always raises a PermissionDenied exception to trigger the 403 error.
-    """
-    raise PermissionDenied
