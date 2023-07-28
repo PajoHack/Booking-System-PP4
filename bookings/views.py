@@ -1,17 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.core.exceptions import PermissionDenied
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import BookingForm
-from .models import Booking, create_booking, MenuItem, Table, TableBooking
+from .models import Booking, MenuItem, Table, TableBooking
 from mailjet_rest import Client
 import os
 from django.http import JsonResponse
-from django.views import View
 from django.utils import timezone
-from django.db.models import Q
 from datetime import timedelta, datetime
 
 
@@ -24,13 +21,14 @@ def index(request):
 
 def login_view(request):
     """
-    View for user login. Authenticates user and redirects to 
+    View for user login. Authenticates user and redirects to
     either admin home or profile depending on user type.
     """
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username=username,
+                            password=password)
         if user is not None:
             login(request, user)
             if user.is_superuser:
@@ -38,10 +36,12 @@ def login_view(request):
             else:
                 return redirect('profile')
         else:
-            return render(request, 'bookings/login.html', {'error': 'Invalid username or password'})
+            return render(
+                request, 'bookings/login.html',
+                {'error': 'Invalid username or password'})
     else:
         return render(request, 'bookings/login.html')
-    
+
 
 def logout_view(request):
     """
@@ -50,18 +50,19 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
- 
+
 def register(request):
     """
-    View for user registration. 
+    View for user registration.
     Creates a new user and redirects to login page.
     """
     if request.method == 'POST':
-        form = UserCreationForm(request.POST) 
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Account created for {username}!')
+            messages.success
+            (request, f'Account created for {username}!')
             return redirect('login')
     else:
         form = UserCreationForm()
@@ -71,23 +72,26 @@ def register(request):
 @login_required
 def profile(request):
     """
-    Profile view for the logged in user. 
+    Profile view for the logged in user.
     Displays all bookings of the user.
     """
     now = timezone.localtime(timezone.now())
-    bookings = Booking.objects.filter(user=request.user).order_by('-date', '-time')
+    bookings = Booking.objects.filter(
+        user=request.user).order_by('-date', '-time')
     for booking in bookings:
         # Combine the date and time into a single datetime object.
         # This assumes that your Booking model has `date` and `time` fields.
-        booking.datetime = timezone.make_aware(datetime.combine(booking.date, booking.time))
-    
-    return render(request, 'bookings/profile.html', {'bookings': bookings, 'now': now})
+        booking.datetime = timezone.make_aware(
+            datetime.combine(booking.date, booking.time))
+
+    return render(
+        request, 'bookings/profile.html', {'bookings': bookings, 'now': now})
 
 
 @login_required
 def booking_view(request):
     """
-    View for booking a table. 
+    View for booking a table.
     Allows a logged in user to book a table and sends confirmation email.
     """
     if request.method == 'POST':
@@ -106,7 +110,7 @@ def booking_view(request):
             mailjet = Client(auth=(api_key, api_secret), version='v3.1')
 
             admin_email = 'pajohack@gmail.com'
-            
+
             data = {
                  'Messages': [
                     # Confirmation email to the user
@@ -117,8 +121,8 @@ def booking_view(request):
                         },
                         'To': [
                             {
-                            'Email': form.cleaned_data['email'],
-                            'Name': form.cleaned_data['your_name'],
+                                'Email': form.cleaned_data['email'],
+                                'Name': form.cleaned_data['your_name'],
                             }
                         ],
                         'TemplateID': 4936543,
@@ -140,11 +144,11 @@ def booking_view(request):
                         },
                         'To': [
                             {
-                            'Email': admin_email,
-                            'Name': 'Admin',
+                                'Email': admin_email,
+                                'Name': 'Admin',
                             }
                         ],
-                        'TemplateID': 4936543,  # Update this with the Admin Notification Template ID
+                        'TemplateID': 4936543,
                         'TemplateLanguage': True,
                         'Subject': 'New booking notification',
                         'Variables': {
@@ -155,10 +159,10 @@ def booking_view(request):
                             'phone_number': form.cleaned_data['phone_number'],
                         },
                     },
-                ]
+                    ]
             }
 
-            result = mailjet.send.create(data=data)
+            mailjet.send.create(data=data)
 
             return redirect('profile')
     else:
@@ -170,7 +174,7 @@ def booking_view(request):
 @login_required
 def edit_booking_view(request, pk):
     """
-    View for editing an existing booking. 
+    View for editing an existing booking.
     Allows a logged in user to modify a booking.
     """
 
@@ -179,9 +183,9 @@ def edit_booking_view(request, pk):
     if request.method == 'POST':
         form = BookingForm(request.POST, instance=booking)
         if form.is_valid():
-            booking = form.save(commit=False)  # save form, but don't commit yet
-            booking.save()  # save the booking instance
-            
+            booking = form.save(commit=False)
+            booking.save()
+
             # Clear the current tables
             booking.tables.clear()
             # Add the selected tables
@@ -191,35 +195,35 @@ def edit_booking_view(request, pk):
             return redirect('profile')
     else:
         form = BookingForm(instance=booking)
-        
+
     context = {
         'form': form,
         'edit_mode': True,
         'booking': booking,
     }
 
-    # return render(request, 'bookings/booking.html', {'form': form, 'edit_mode': True})
     return render(request, 'bookings/booking.html', context)
 
 
 @login_required
 def delete_booking_view(request, pk):
     """
-    View for deleting a booking. 
+    View for deleting a booking.
     Allows a logged in user to delete a booking of their own.
     """
     booking = get_object_or_404(Booking, id=pk, user=request.user)
-    
+
     if request.method == 'POST':
         booking.delete()
         return redirect('profile')
-    
-    return render(request, 'bookings/delete_booking.html', {'booking': booking})
+
+    return render(
+        request, 'bookings/delete_booking.html', {'booking': booking})
 
 
 def menu_view(request):
     """
-    View to display the restaurant menu. 
+    View to display the restaurant menu.
     Segregates menu items into starters, pizzas and pastas.
     """
     starters = MenuItem.objects.filter(category='ST')
@@ -234,7 +238,7 @@ def menu_view(request):
 
     return render(request, 'bookings/menu.html', context)
 
-        
+
 def check_availability(request):
     """
     View to check table availability for a given date and time.
@@ -255,7 +259,8 @@ def check_availability(request):
 
         table = Table.objects.get(id=table_id)
 
-        table_bookings = TableBooking.objects.filter(table=table, booking__date=date)
+        table_bookings = TableBooking.objects.filter(
+            table=table, booking__date=date)
 
         overlap_exists = False
         booked_by_current_user = False
@@ -266,23 +271,22 @@ def check_availability(request):
             requested_start = datetime.combine(date, time)
             requested_end = requested_start + timedelta(hours=1, minutes=30)
 
-            if (booking_start <= requested_end) and (requested_start <= booking_end):
+            if (booking_start <= requested_end) and \
+               (requested_start <= booking_end):
                 overlap_exists = True
                 # Check if the booking is made by the current user
                 if booking_id and str(table_booking.booking.id) == booking_id:
                     booked_by_current_user = True
-                # Print the values for debugging
-                print(f"booking_id: {booking_id}, table_booking.booking.id: {table_booking.booking.id}, booked_by_current_user: {booked_by_current_user}")
                 break
 
         if overlap_exists:
-            # return JsonResponse({'available': False})
-             return JsonResponse({'available': False, 'booked_by_current_user': booked_by_current_user})
+            return JsonResponse(
+                {'available': False,
+                 'booked_by_current_user': booked_by_current_user})
         else:
             return JsonResponse({'available': True})
     else:
         return JsonResponse({'detail': 'Invalid request method.'}, status=405)
-    
 
 
 def gallery_view(request):
@@ -293,7 +297,8 @@ def gallery_view(request):
         request (HttpRequest): The request instance.
 
     Returns:
-        HttpResponse: The response instance that renders the 'gallery.html' template.
+        HttpResponse: The response instance that renders the
+        'gallery.html' template.
     """
     return render(request, 'bookings/gallery.html')
 
@@ -306,7 +311,8 @@ def handler500(request, *args, **argv):
         request (HttpRequest): The request instance.
 
     Returns:
-        HttpResponse: The response instance that renders the '500.html' template with status code 500.
+        HttpResponse: The response instance that
+        renders the '500.html' template with status code 500.
     """
     return render(request, '500.html', status=500)
 
@@ -317,10 +323,12 @@ def handler403(request, exception, *args, **argv):
 
     Args:
         request (HttpRequest): The request instance.
-        exception (Exception): The exception instance that triggered this handler.
+        exception (Exception): The exception
+        instance that triggered this handler.
 
     Returns:
-        HttpResponse: The response instance that renders the '403.html' template with status code 403.
+        HttpResponse: The response instance
+        that renders the '403.html' template with status code 403.
     """
     return render(request, '403.html', status=403)
 
@@ -331,10 +339,12 @@ def handler404(request, exception, *args, **argv):
 
     Args:
         request (HttpRequest): The request instance.
-        exception (Exception): The exception instance that triggered this handler.
+        exception (Exception): The exception instance
+        that triggered this handler.
 
     Returns:
-        HttpResponse: The response instance that renders the '404.html' template with status code 404.
+        HttpResponse: The response instance that
+        renders the '404.html' template with status code 404.
     """
     return render(request, '404.html', status=404)
 
@@ -347,6 +357,7 @@ def handler405(request, *args, **argv):
         request (HttpRequest): The request instance.
 
     Returns:
-        HttpResponse: The response instance that renders the '405.html' template with status code 405.
+        HttpResponse: The response instance that
+        renders the '405.html' template with status code 405.
     """
     return render(request, '405.html', status=405)

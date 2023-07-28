@@ -10833,33 +10833,24 @@ textarea.form-control-lg {
   background-size: cover;
 }
 
-/* custom css */
+/* Custom css begins here */
 
-/* navbar  */
+/* Navbar styles  */
 
+/* Remove border from navbar toggler */
 .navbar-toggler {
   border: none;
 }
 
+/* Remove focus outline and box shadow from navbar toggler */
 .navbar-toggler:focus {
   outline: none;
   box-shadow: none;
 }
 
-/* writing under the logo */
+/* Footer styles */
 
-.italian-restaurant {
-  background-color: #fff;
-  color: #000;
-  font-style: italic;
-  font-weight: 400;
-  padding: .5rem;
-  border: 5px solid #000;
-  border-radius: 1rem;
-}
-
-/* footer */
-
+/* Center social media icons and add gap between them */
 footer .social-media {
   display: flex;
   justify-content: center;
@@ -10867,13 +10858,15 @@ footer .social-media {
   margin-top: 20px;
 }
 
+/* Set color and font size for social media links */
 footer .social-media a {
   color: white;
   font-size: 20px;
 }
 
-/* menu page styles */
+/* Menu page styles */
 
+/* Add font family, size, color, and margins to menu title */
 .menu-title {
   font-family: 'Great Vibes', cursive;
   font-size: 2.5rem;
@@ -10883,57 +10876,83 @@ footer .social-media a {
   text-transform: uppercase;
 }
 
+/* Add box shadow to cards */
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+/* Set flex and max-width for card body */
 .card-body {
   flex: 1;
   max-width: calc(100% - 12.5rem); 
 }
 
+/* Set display and flex-wrap for card container */
 .card-container {
   display: flex;
   flex-wrap: wrap;
 }
 
+/* Set height for cards within card container */
 .card-container .card {
   height: 100%;
 }
 
+/* Set font size, weight, and color for card price */
 .card-price {
   font-size: 1.5em; 
   font-weight: bold; 
   color: #dc3545; 
 }
 
+/* Set flex-wrap for card content */
 .card-content {
   flex-wrap: nowrap;
 }
 
+/* Set width, height, and object-fit for menu item image */
 .menu-item-image {
   width: 12.5rem;  
   height: 12.5rem;
   object-fit: cover;
 }
 
+/* Set background color for .background-text class */
 .background-text {
   background-color: #000;
 }
 
-/* styles for logo image */
+/* Styles for logo image */
 
+/* Set width, max-width, position, overflow, border, border-radius, and box-shadow for .image-cropper class */
 .image-cropper {
-  width: 100px;
-  height: 100px;
+  width: 50%;
+  max-width: 300px;
   position: relative;
   overflow: hidden;
+  border: 5px solid #000;
   border-radius: 50%;
+  box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.75);
 }
 
+/* Set width and height for images within .image-cropper */
 .image-cropper img {
-  display: inline;
-  margin: 0 auto;
-  height: 100%;
-  width: auto;
+  width: 100%;
+  height: auto;
+}
+
+/* Media queries for .image-cropper class */
+
+/* Increase max-width for .image-cropper on screens larger than 800px */
+@media (min-width: 800px) {
+  .image-cropper {
+    max-width: 400px; 
+  }
+}
+
+/* Increase max-width for .image-cropper on screens larger than 1200px */
+@media (min-width: 1200px) {
+  .image-cropper {
+    max-width: 500px; 
+  }
 }

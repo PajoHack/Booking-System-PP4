@@ -30,11 +30,9 @@
           <td class="responsive-table-cell" data-label="Your Name">{{ booking.your_name }}</td>
           <td class="responsive-table-cell" data-label="Email">{{ booking.email }}</td>
           <td class="responsive-table-cell" data-label="Actions">
-            <!-- Edit button -->
             <a href="{% url 'adminapp:booking_edit' booking.pk %}" class="btn btn-warning">
               <i class="fas fa-edit"></i> Edit
             </a>
-            <!-- Delete button -->
             <a href="{% url 'adminapp:booking_delete' booking.pk %}" class="btn btn-danger">
               <i class="fas fa-trash"></i> Delete
             </a>

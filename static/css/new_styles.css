@@ -1,13 +1,14 @@
+/* Import Google font 'Great Vibes' */
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 
-/* make the footer stick to the bottom of the viewport */
-
+/* Body styles to make footer stick to the bottom of the viewport */
 body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
 }
 
+/* Styles for profile title with custom font, size, color, and margins */
 .profile-title {
     font-family: 'Great Vibes', cursive;
     font-size: 2.5rem;
@@ -17,19 +18,22 @@ body {
     text-transform: uppercase;
 }
 
+/* Flex styles for content to center it */
 .content {
     flex: 1;
     display: flex;
     justify-content: center;
     padding-bottom: 2rem;
 }
-  
+
+/* Push footer to the bottom */
 .footer {
     margin-top: auto;
 }
   
-/* reservation form rules */
-  
+/* Reservation form styles */
+
+/* Centered div with shadow and width restrictions */
 .center-div {
     margin-top: 2rem;
     padding: 20px;
@@ -38,31 +42,37 @@ body {
     max-width: 600px;
 }
 
+/* Minimum height for message element */
 #message {
     min-height: 20px;
 }
 
-/* gallery rules */
+/* Gallery styles */
 
+/* Top margin for gallery */
 .gallery-top {
     margin-top: 4rem;
 }
 
+/* Fixed height and width for images, with object-fit to maintain aspect ratio */
 .img-fluid {
     height: 25rem;
     width: 32rem;
     object-fit: cover; 
 }
 
+/* Color and decoration for links in thumbnail */
 .thumbnail a {
     color: #333; 
     text-decoration: none; 
 }
 
+/* Color for links in thumbnail on hover */
 .thumbnail a:hover {
     color: #777; 
 }
 
+/* Media queries to adjust width of .center-div based on viewport size */
 @media (min-width: 576px) {
     .center-div {
         width: 90%;

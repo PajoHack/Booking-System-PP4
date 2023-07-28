@@ -21,7 +21,7 @@ class BookingAdmin(admin.ModelAdmin):
 @admin.register(Table)
 class TableAdmin(admin.ModelAdmin):
     list_display = ('table_number', 'seats')
-    search_fields = ('table_number',)  
+    search_fields = ('table_number',)
     list_filter = ('table_number', 'seats')
 
 

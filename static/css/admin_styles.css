@@ -1,43 +1,53 @@
+/* Set minimum height for html and body to fill the viewport */
 html, body{
     min-height: 100vh;
 }
 
+/* Set height for container and row to fill their parent */
 .container-fluid, .row {
     height: 100%;
 }
 
+/* Add top margin to header */
 .header-spacing {
     margin-top: 4rem;
 }
 
+/* Add extra top margin to h1 elements */
 .extra-space-for-h1 {
     margin-top: 5rem;
 }
 
+/* Center navbar items */
 .navbar-nav {
     display: flex;
     justify-content: center;
     width: 100%;
 }
-  
+
+/* Set navbar background color to black */
 .navbar.navbar-light.bg-light {
     position: relative;
     z-index: 2;
     background-color: #000 !important;
 }
 
+/* Set navbar link and brand colors to white */
 .navbar .nav-link, .navbar .navbar-brand {
     color: #fff !important;
 }
 
+/* Change navbar link color to red on hover */
 .navbar .nav-link:hover {
     color: #ff0000 !important;
 }
 
+/* Set navbar toggler icon color to white */
 .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
+/* Set sidebar menu styles */
 #sidebarMenu {
     position: fixed;
     top: 0;
@@ -48,16 +58,17 @@ html, body{
     background-color: #000 !important;
 }
 
+/* Set sidebar menu link color to white */
 #sidebarMenu .nav-link {
     color: #fff !important;
 }
 
+/* Change sidebar menu link color to red on hover */
 #sidebarMenu .nav-link:hover {
     color: #ff0000 !important;
 }
 
 /* fixed height for images in menu list page */
-
 .fixed-height {
     height: 200px;
     width: 100%;
@@ -66,13 +77,14 @@ html, body{
 }
 
 /* Mobile view for bookings list */
-
 @media (max-width: 767px) {
 
+    /* Hide table header on small screens */
     .table thead {
         display: none;
     }
     
+    /* Set display properties for responsive table rows and cells */
     .responsive-table-row {
       display: block;
       margin-bottom: 10px;
@@ -84,7 +96,8 @@ html, body{
       border-bottom: 1px solid #ddd;
       padding: 10px;
     }
-  
+    
+    /* Add data label before each cell content */
     .responsive-table-cell::before {
       content: attr(data-label);
       float: left;

@@ -1,4 +1,5 @@
 $(function () {
+    // Initialize timepicker with specific format and restrictions
     $('#datetimepicker').timepicker({
         'timeFormat': 'HH:mm:ss',
         'minTime': '12:00pm',
@@ -6,6 +7,7 @@ $(function () {
         'step': 30
     });
 
+    // Grab relevant DOM elements
     const dateInput = document.querySelector('#date');
     const timeInput = document.querySelector('#datetimepicker');
     const message = document.querySelector('#message');
@@ -13,6 +15,7 @@ $(function () {
     const tableCheckboxes = document.getElementsByName('tables');
     const bookingId = document.querySelector('#editMode').value;
 
+    // Function to check the availability of selected tables
     function checkAvailability() {
         message.textContent = '';
         submitButton.disabled = false;
@@ -26,14 +29,13 @@ $(function () {
                 const tableId = tableCheckboxes[i].value;
                 const date = dateInput.value;
                 const time = timeInput.value;
-    
-                 // Update: Include the booking ID in the fetch request
-                 checks.push(
+                
+                // Fetch availability data from server and add to checks array
+                checks.push(
                     fetch(`/check_availability?table_id=${tableId}&date=${date}&time=${time}&booking_id=${bookingId}`)
                         .then(response => response.json())
                         .then(data => {
                             if (!data.available) {
-                                // Update: Check if the table is booked by the current user
                                 if (data.booked_by_current_user) {
                                     message.textContent += `You have already booked Table ${tableId} for the chosen date & time. `;
                                 } else {
@@ -47,7 +49,7 @@ $(function () {
             }
         }
 
-    
+        // Once all checks are complete, update message and submit button status
         Promise.all(checks).then(results => {
             if (results.every(val => val === true) && results.length > 0) {
                 message.textContent = "All selected tables are available!";
@@ -57,12 +59,13 @@ $(function () {
         });
     }    
 
+    // Add event listeners to trigger checkAvailability function
     for (let i = 0; i < tableCheckboxes.length; i++) {
         tableCheckboxes[i].addEventListener('change', checkAvailability);
     }
     dateInput.addEventListener('input', checkAvailability);
     timeInput.addEventListener('input', checkAvailability);
 
-    // Poll every 5 seconds
+    // Poll every 5 seconds to keep availability data up-to-date
     setInterval(checkAvailability, 5000);
 });

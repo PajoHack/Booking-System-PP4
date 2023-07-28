@@ -95,7 +95,7 @@ For user stories I created a GitHub project called Booking-System-PP4. I followe
 
 ### Site Home Page
 
-The site home page contains a hero image of the Italian countryside. It gives the visitor a sense of the rich, serene, and rustic ambiance associated with traditional Italian dining, setting the stage for a culinary journey through the delights of Italian cuisine.
+The homepage features a captivating hero image showcasing a spread of Italian cuisine elegantly arranged on a table. It gives the visitor a sense of the rich and rustic ambiance associated with traditional Italian dining.
 
 There is also a section containing a brief synopsis of the restaurant's history.
 
@@ -220,6 +220,7 @@ The add, edit and delete bookings forms are almost identical to the table manage
 - I would consider enhancing the admin home page by incorporating additional metrics in the future for a more comprehensive understanding of site data.
 - I would also consider implementing detailed views for each admin menu item to offer more in-depth information.
 - Similarly, it would be beneficial to incorporate detailed views for each menu item on the regular customer's menu page, providing more comprehensive information for each selection.
+- Ideally a handler should be created to deal with unsuccessful or undelivered email from mailjet.
 
 ## Testing
 
@@ -289,6 +290,26 @@ All tests were successful, indicating that the user stories were correctly imple
 - CSS: I validated the CSS files using [Jigsaw](https://jigsaw.w3.org/css-validator/), and it returned no errors
 
 ![Screenshot of css validation](documentation/w3c-css-validation.png)
+
+- Python: I ran `python manage.py check` and no issues were returned. 
+
+![Screenshot of python check](documentation/python-check.png)
+
+- `flake8 bookings/views.py` was run to check the views.py file in the bookings app.
+
+![Screenshot of flake8 bookings view check](documentation/flake8-bookings-views.png)
+
+- `flake8 adminapp/views.py` was run to check the views.py file in the adminapp app.
+
+![Screenshot of flake8 adminapp view check](documentation/flake8-adminapp-views.png)
+
+- `flake8 bookings/forms.py` was run to check the forms.py file in the bookings app.
+
+![Screenshot of flake8 bookings forms check](documentation/flake8-bookings-forms.png)
+
+- `flake8 adminapp/forms.py` was run to check the forms.py file in the adminapp app.
+
+![Screenshot of flake8 adminapp forms check](documentation/flake8-adminapp-forms.png)
 
 ## Debugging
 

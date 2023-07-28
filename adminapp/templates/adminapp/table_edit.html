@@ -4,7 +4,7 @@
 {% block content %}
 <h1 class="text-center extra-space-for-h1">Edit Table</h1>
   <div class="row">
-    <div class="col-lg-6 col-md-8 mx-auto"> <!-- Form will take half of large screens, 2/3 of medium screens, and is centered -->
+    <div class="col-lg-6 col-md-8 mx-auto">
       <form method="post" novalidate enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}

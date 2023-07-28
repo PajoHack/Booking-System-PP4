@@ -1,5 +1,4 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
 from bookings.models import MenuItem, Table, Booking
 from .forms import MenuItemForm, TableForm, BookingForm
 from django.contrib.auth.decorators import user_passes_test, login_required
@@ -15,18 +14,6 @@ def superuser_check(user):
     return user.is_superuser
 
 
-@login_required
-@user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
-def admin_home(request):
-    """View to handle the admin homepage."""
-    return render(request, 'adminapp/admin_home.html')
-
-
-def not_superuser(request):
-    """View to handle the page that is shown when the user is not a superuser."""
-    return render(request, 'adminapp/not_superuser.html')
-
-
 # menu views
 
 @login_required
@@ -34,7 +21,8 @@ def not_superuser(request):
 def menu_list(request):
     """View to display a list of menu items."""
     menu_items = MenuItem.objects.all()
-    return render(request, 'adminapp/menu_list.html', {'menu_items': menu_items})
+    return render(
+        request, 'adminapp/menu_list.html', {'menu_items': menu_items})
 
 
 @login_required
@@ -44,7 +32,7 @@ def menu_new(request):
     if request.method == "POST":
         form = MenuItemForm(request.POST, request.FILES)
         if form.is_valid():
-            menu_item = form.save()
+            form.save()
             return redirect('adminapp:menu_list')
     else:
         form = MenuItemForm()
@@ -63,7 +51,9 @@ def menu_edit(request, pk):
             return redirect('adminapp:menu_list')
     else:
         form = MenuItemForm(instance=menu_item)
-    return render(request, 'adminapp/menu_edit.html', {'form': form, 'menu_item': menu_item})
+    return render(
+        request, 'adminapp/menu_edit.html',
+        {'form': form, 'menu_item': menu_item})
 
 
 @login_required
@@ -74,7 +64,8 @@ def menu_delete(request, pk):
     if request.method == "POST":
         menu_item.delete()
         return redirect('adminapp:menu_list')
-    return render(request, 'adminapp/menu_item_delete.html', {'menu_item': menu_item})
+    return render(
+        request, 'adminapp/menu_item_delete.html', {'menu_item': menu_item})
 
 
 # table views
@@ -86,6 +77,7 @@ def table_list(request):
     """View to display a list of tables."""
     tables = Table.objects.all()
     return render(request, 'adminapp/table_list.html', {'tables': tables})
+
 
 # new table
 @login_required
@@ -111,7 +103,8 @@ def table_delete(request, pk):
     if request.method == "POST":
         table.delete()
         return redirect('adminapp:table_list')
-    return render(request, 'adminapp/table_confirm_delete.html', {'table': table})
+    return render(
+        request, 'adminapp/table_confirm_delete.html', {'table': table})
 
 
 # edit table
@@ -145,7 +138,9 @@ def booking_list(request):
     page_number = request.GET.get('page')
     bookings = paginator.get_page(page_number)
 
-    return render(request, 'adminapp/booking_list.html', {'bookings': bookings})
+    return render(
+        request, 'adminapp/booking_list.html', {'bookings': bookings})
+
 
 # new booking
 @login_required
@@ -161,7 +156,10 @@ def booking_new(request):
             return redirect('adminapp:booking_list')
     else:
         form = BookingForm()
-    return render(request, 'adminapp/booking_form.html', {'form': form, 'form_type': 'New'})
+    return render(
+        request, 'adminapp/booking_form.html',
+        {'form': form, 'form_type': 'New'})
+
 
 # edit booking
 @login_required
@@ -176,7 +174,10 @@ def booking_edit(request, pk):
             return redirect('adminapp:booking_list')
     else:
         form = BookingForm(instance=booking)
-    return render(request, 'adminapp/booking_form.html', {'form': form, 'form_type': 'Edit'})
+    return render(
+        request, 'adminapp/booking_form.html',
+        {'form': form, 'form_type': 'Edit'})
+
 
 # delete booking
 @login_required
@@ -187,13 +188,15 @@ def booking_delete(request, pk):
     if request.method == 'POST':
         booking.delete()
         return redirect('adminapp:booking_list')
-    return render(request, 'adminapp/booking_confirm_delete.html', {'object': booking})
+    return render(
+        request, 'adminapp/booking_confirm_delete.html',
+        {'object': booking})
 
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser, login_url='adminapp:not_superuser')
 def admin_home(request):
-    """View to handle the admin homepage, 
+    """View to handle the admin homepage,
     showing counts of bookings, menu items, and tables.
     """
     booking_count = Booking.objects.count()
@@ -207,3 +210,9 @@ def admin_home(request):
     }
 
     return render(request, 'adminapp/admin_home.html', context)
+
+
+def not_superuser(request):
+    """View to handle the page that is
+    shown when the user is not a superuser."""
+    return render(request, 'adminapp/not_superuser.html')
