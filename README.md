@@ -127,6 +127,8 @@ The gallery page showcases an array of captivating images which we feel captures
 
 The reservation page, accessible only to registered users, presents a booking form with an accompanying guide on how to fill it out. As the user inputs their details, a script diligently checks the availability of the requested tables. The form incorporates an intelligent validation system, eliminating the possibility of selecting past dates and ensuring that the number of guests does not surpass the capacity of the chosen tables. Furthermore, each table becomes available for new reservations two hours after the start of the previous booking. Only when all these checks are satisfied does the form's submission button become enabled, ensuring a smooth and error-free reservation experience.
 
+The form utilized for creating bookings also serves the purpose of editing existing ones. Depending on the context, the title dynamically adjusts from "Make a Reservation" to "Edit - Booking". The form is pre-populates with the user's current selection for a more intuitive editing experience. Additionally, the form feedback is context-aware; if a user attempts to edit a booking for a table they've already reserved, the form will display "You have already booked Table 8 for the chosen date & time," instead of the generic "Table not available" message.
+
 ![Screenshot of the booking form](documentation/booking-form.png)
 
 This message is displayed when the table is available and all necessary information is provided.
@@ -220,7 +222,9 @@ The add, edit and delete bookings forms are almost identical to the table manage
 - I would consider enhancing the admin home page by incorporating additional metrics in the future for a more comprehensive understanding of site data.
 - I would also consider implementing detailed views for each admin menu item to offer more in-depth information.
 - Similarly, it would be beneficial to incorporate detailed views for each menu item on the regular customer's menu page, providing more comprehensive information for each selection.
-- Ideally a handler should be created to deal with unsuccessful or undelivered email from mailjet.
+- Ideally a handler should be created to deal with unsuccessful or undelivered emails from mailjet.
+- With time I would also add the functionality to create superusers / admins directly in the adminapp. Currently this is achived only through the terminal with the command  `python manage.py createsuperuser` and following the subsequent instructions. Or, using the built in Django admin module. To access this you add `/admin` to the end of the home url.
+- Allow users to customize their own profiles, including uploading a profile picture, setting a display name, and more.
 
 ## Testing
 
@@ -310,6 +314,24 @@ All tests were successful, indicating that the user stories were correctly imple
 - `flake8 adminapp/forms.py` was run to check the forms.py file in the adminapp app.
 
 ![Screenshot of flake8 adminapp forms check](documentation/flake8-adminapp-forms.png)
+
+
+### Browser Testing
+
+The site has been tested and confirmed to work well in the following modern browsers:
+
+- **Google Chrome**: The site was extensively tested in Google Chrome, as it is the primary browser used during development. All pages render as expected, and all functionality works correctly.
+
+- **Mozilla Firefox**: The site was tested in Firefox and all pages render correctly. All functionality, including form submissions and navigation, works as expected.
+
+- **Safari**: The site was tested on Safari on MacOS and iOS. All elements render correctly and functionality is consistent with other browsers.
+
+- **Microsoft Edge**: The site was tested on the latest version of Edge. The site renders correctly and all functionality works as expected.
+
+- **Opera**: The site was tested in Opera, and all pages and functionality work correctly.
+
+Please note that the site may not display correctly in Internet Explorer, as it is no longer being updated by Microsoft and does not support modern web standards.
+
 
 ## Debugging
 

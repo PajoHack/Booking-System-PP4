@@ -32,11 +32,11 @@ Profile
                     </td>
                     <td>
                         {% if booking.datetime > now %}
-                            <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary btn-sm">Edit</a>
-                            <a href="{% url 'delete_booking' booking.id %}" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                            <a href="{% url 'delete_booking' booking.id %}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
                         {% else %}
-                            <span class="btn btn-primary btn-sm disabled">Edit</span>
-                            <span class="btn btn-danger btn-sm disabled">Delete</span>
+                            <span class="btn btn-primary btn-sm disabled"><i class="fas fa-edit"></i></span>
+                            <span class="btn btn-danger btn-sm disabled"><i class="fas fa-trash-alt"></i></span>
                         {% endif %}
                     </td>
                 </tr>

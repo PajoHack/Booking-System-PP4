@@ -18,6 +18,11 @@ class BookingForm(forms.ModelForm):
         of the person making the booking.
         email (EmailField): The email address of the person making the booking.
     """
+
+    def __init__(self, *args, booking_id=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.booking_id = booking_id
+
     date = forms.DateField(
         widget=forms.DateInput(attrs={'type': 'date', 'id': 'date'}))
     time = forms.TimeField(
@@ -116,10 +121,18 @@ class BookingForm(forms.ModelForm):
 
         if booking_time and booking_date and tables:
             for table in tables:
-                latest_booking = Booking.objects.filter(
-                    tablebooking__table=table,
-                    date=booking_date
-                ).order_by('-time').first()
+                # Exclude the current booking from
+                # the queryset if the form is in edit mode
+                if self.booking_id:
+                    latest_booking = Booking.objects.filter(
+                        tablebooking__table=table,
+                        date=booking_date
+                    ).exclude(id=self.booking_id).order_by('-time').first()
+                else:
+                    latest_booking = Booking.objects.filter(
+                        tablebooking__table=table,
+                        date=booking_date
+                    ).order_by('-time').first()
 
                 if latest_booking:
                     latest_booking_end_time = (

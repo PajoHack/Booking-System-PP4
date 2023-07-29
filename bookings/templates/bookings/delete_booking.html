@@ -28,9 +28,9 @@ Delete Booking
                 <div class="card-footer">
                     <form method="POST">
                         {% csrf_token %}
-                        <input type="submit" value="Yes, delete it." class="btn btn-danger">
+                        <input type="submit" value="Yes, delete" class="btn btn-danger">
                     </form>
-                    <a href="{% url 'profile' %}" class="btn btn-secondary mt-2">No, take me back.</a>
+                    <a href="{% url 'profile' %}" class="btn btn-secondary mt-2">No, cancel</a>
                 </div>
             </div>
         </div>

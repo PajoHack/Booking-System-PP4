@@ -10,10 +10,14 @@ $(function () {
     // Grab relevant DOM elements
     const dateInput = document.querySelector('#date');
     const timeInput = document.querySelector('#datetimepicker');
+    const guestsInput = document.querySelector('#guests');
     const message = document.querySelector('#message');
     const submitButton = document.querySelector('#submitButton');
     const tableCheckboxes = document.getElementsByName('tables');
     const bookingId = document.querySelector('#editMode').value;
+
+    // Variable to track if the form has been changed
+    let formChanged = false;
 
     // Function to check the availability of selected tables
     function checkAvailability() {
@@ -40,10 +44,13 @@ $(function () {
                                     message.textContent += `You have already booked Table ${tableId} for the chosen date & time. `;
                                 } else {
                                     message.textContent += `Table ${tableId} is not available for the chosen date & time. `;
+                                    if (!editMode || formChanged) {
+                                        submitButton.disabled = true; // disable the submit button if the table is booked by another user and the form is not in edit mode or has been changed
+                                    }
                                 }
-                                return false; 
+                                return false;
                             }
-                            return true; 
+                            return true;
                         })
                 );
             }
@@ -53,7 +60,7 @@ $(function () {
         Promise.all(checks).then(results => {
             if (results.every(val => val === true) && results.length > 0) {
                 message.textContent = "All selected tables are available!";
-            } else {
+            } else if (!editMode || formChanged) {
                 submitButton.disabled = true;
             }
         });
@@ -61,10 +68,25 @@ $(function () {
 
     // Add event listeners to trigger checkAvailability function
     for (let i = 0; i < tableCheckboxes.length; i++) {
-        tableCheckboxes[i].addEventListener('change', checkAvailability);
+        tableCheckboxes[i].addEventListener('change', () => {
+            formChanged = true;
+            checkAvailability();
+        });
     }
-    dateInput.addEventListener('input', checkAvailability);
-    timeInput.addEventListener('input', checkAvailability);
+    dateInput.addEventListener('input', () => {
+        formChanged = true;
+        checkAvailability();
+    });
+    timeInput.addEventListener('input', () => {
+        formChanged = true;
+        checkAvailability();
+    });
+    guestsInput.addEventListener('input', () => { // add this block
+        if (!formChanged) { // only check availability if other fields have not been changed
+            checkAvailability();
+        }
+    });
+
 
     // Poll every 5 seconds to keep availability data up-to-date
     setInterval(checkAvailability, 5000);

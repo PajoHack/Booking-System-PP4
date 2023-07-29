@@ -181,7 +181,7 @@ def edit_booking_view(request, pk):
     booking = get_object_or_404(Booking, id=pk, user=request.user)
 
     if request.method == 'POST':
-        form = BookingForm(request.POST, instance=booking)
+        form = BookingForm(request.POST, instance=booking, booking_id=booking.id)
         if form.is_valid():
             booking = form.save(commit=False)
             booking.save()
@@ -194,7 +194,7 @@ def edit_booking_view(request, pk):
 
             return redirect('profile')
     else:
-        form = BookingForm(instance=booking)
+        form = BookingForm(instance=booking, booking_id=booking.id)
 
     context = {
         'form': form,
